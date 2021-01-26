@@ -2,7 +2,7 @@
 
 #-----------------------------------------------------------------------
 #
-# "Script name" script 
+# SCRIPT_NAME script 
 #
 # Server Automation - https://github.com/evertramos/server-automation 
 #
