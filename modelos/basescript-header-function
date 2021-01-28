@@ -21,11 +21,11 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. 
+# 1. Script to check if folder exists
 #
 # You must/might inform the parameters below:
-# 1. 
-# 2. [optional] (default: )
+# 1. Folder full path
+# 2. [optional] (default: false) Output message if folder does not exist
 #
 #-----------------------------------------------------------------------
 
