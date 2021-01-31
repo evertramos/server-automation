@@ -21,11 +21,11 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Script to check if folder exists
+# 1.
 #
 # You must/might inform the parameters below:
-# 1. Folder full path
-# 2. [optional] (default: false) Output message if folder does not exist
+# 1.
+# 2. [optional] (default: )
 #
 #-----------------------------------------------------------------------
 
@@ -34,8 +34,8 @@ function_name()
 #  local LOCAL_
    
 #  LOCAL_=${1:-null}
- 
-#  [[ $LOCAL_ == "" ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+
+#  [[ $LOCAL_ == "" ]] && echoerr "You must inform the required argument(s) to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
  
 #  [[ "$DEBUG" == true ]] && echo ""
 #  [[ "$SILENT" == true ]] && echo ""
