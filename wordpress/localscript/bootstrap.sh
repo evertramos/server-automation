@@ -8,11 +8,14 @@
 # Copyright Evert Ramos
 #
 #-----------------------------------------------------------------------
+#
+# Be carefull when editing this file, it is part of a bigger script!
+#
+#-----------------------------------------------------------------------
 
 #-----------------------------------------------------------------------
 # This script has one main objective:
-# 1. Load all functions in local folder and subfolders
-#
+# 1. Load all functions in local folder
 #-----------------------------------------------------------------------
 
 #-----------------------------------------------------------------------
