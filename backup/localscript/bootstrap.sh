@@ -15,7 +15,7 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Load all functions in local base script folder
+# 1. Load all functions in local script folder
 #-----------------------------------------------------------------------
 
 # Get Current directory
