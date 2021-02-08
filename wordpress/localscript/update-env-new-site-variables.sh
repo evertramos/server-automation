@@ -1,7 +1,5 @@
 #-----------------------------------------------------------------------
 #
-# Local Script
-#
 # Server Automation - https://github.com/evertramos/server-automation
 #
 # Developed by
@@ -12,8 +10,6 @@
 #-----------------------------------------------------------------------
 #
 # Be carefull when editing this file, it is part of a bigger script!
-#
-# Basescript - https://github.com/evertramos/basescript
 #
 #-----------------------------------------------------------------------
 
