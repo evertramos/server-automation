@@ -13,23 +13,17 @@
 #
 #-----------------------------------------------------------------------
 
-# Bash setttings do not mess up
+# Bash settings (do not mess with it)
 shopt -s nullglob globstar
 
-# Debug true will show all debug messages
-#DEBUG=true
-
-# Silent true will hide all information
-#SILENT=true
-
-# Get the sript name and its file real path
+# Get the script name and its file real path
 SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
 SCRIPT_NAME="${0##*/}"
 
-# Read basescript
+# Source basescript functions
 source $SCRIPT_PATH"/../basescript/bootstrap.sh"
 
-# Read localscript
+# Source localscripts
 source $SCRIPT_PATH"/localscript/bootstrap.sh"
 
 #-----------------------------------------------------------------------
@@ -154,7 +148,7 @@ done
 #NEW_PID_FILE=".new_script_file"
 
 # Run initial check function
-run_function initial_check $NEW_PID_FILE
+run_function starts_initial_check $NEW_PID_FILE
 
 # Check if there is an .env file in local folder
 run_function checklocalenvfile
@@ -186,7 +180,7 @@ local_undo_restore()
     if [[ "$ACTION_SITE_PATH_CREATED" == true ]]; then
         [[ "$SILENT" != true ]] && echowarning "[undo] Creating site folder '$LOCAL_SITE_FULL_PATH'."
         # Remove folder
-#        run_function system_safe_delete_folder $LOCAL_SITE_FULL_PATH
+#        run_function system_safe_delete_folder $LOCAL_SITE_FULL_PATH true
         ACTION_SITE_PATH_CREATED=false
     fi
 
@@ -228,7 +222,7 @@ else
   # Result from folder exists function
   if [[ "$FOLDER_EXIST" == false ]]; then
     echowarning "The backup folder does not exist in your server. We will create it for your. Your backup will be located at '$DESTINATION_FOLDER'."
-#    run_function create_folder $DESTINATION_FOLDER
+#    run_function common_create_folder $DESTINATION_FOLDER
     ACTION_SITE_URL_CREATED=true
   fi
 fi
@@ -241,7 +235,7 @@ fi
 # Check if user informed the Folder/Site (ARG_URL) that should backup
 if [[ $ARG_URL != "" ]] && [[ "$ALL_SITES" != true ]]; then 
   
-  run_function get_domain_from_url $ARG_URL
+  run_function domain_get_domain_from_url $ARG_URL
   LOCAL_URL=$DOMAIN_URL_RESPONSE
   
   # Check if folder exists
@@ -288,7 +282,7 @@ fi
 # Start running script
 #-----------------------------------------------------------------------
 
-# Funcion to be called by the next 
+# function to be called by the next
 function local_backup()
 {
   # Backup folder 
@@ -313,7 +307,7 @@ function local_backup()
     if [[ "$DELETE_LOCAL" == true ]]; then
       
       # Delete local backup file
-#      run_function backup_delete_local_file $BACKUP_FOLDER_FILE_OUTPUT
+#      run_function file_delete_local_file $BACKUP_FOLDER_FILE_OUTPUT
     fi
     
     # Listing files in the Backup Storage on debug mode
