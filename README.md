@@ -18,7 +18,7 @@ Scripts developed to make your life easier!
 
 ## How to use it?
 
-Well, this repo is probably cloned to our server... it should be located at `/server/script' folder, but if you don´t find it in our server, please follow up our [BM Digital Script Instalation Wiki](../wikis/Initial-Setup).
+Well, this repo is probably cloned to our server... it should be located at `/server/script' folder, but if you don´t find it in our server, please follow up our [Script Instalation Wiki](../wikis/Initial-Setup).
 
 ## 1. Clone scripts
 
