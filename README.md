@@ -8,9 +8,8 @@ Scripts to automate your work! (bash script, docker, docker-compose, dns etc)
 - check domain exist and dns is forwarding before run the new site script, if create/set dns continue...
 - www option on start
 
+----
 
-
-## old readme....
 
 Scripts developed to make your life easier!
 
@@ -19,6 +18,8 @@ Scripts developed to make your life easier!
 ## How to use it?
 
 Well, this repo is probably cloned to our server... it should be located at `/server/script' folder, but if you don´t find it in our server, please follow up our [Script Instalation Wiki](../wikis/Initial-Setup).
+
+## Roadmap
 
 ## 1. Clone scripts
 
