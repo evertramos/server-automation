@@ -154,7 +154,7 @@ run_function starts_initial_check $NEW_PID_FILE
 run_function checklocalenvfile
 
 # Save PID
-save_pid $NEW_PID_FILE
+system_save_pid $NEW_PID_FILE
 
 # DO NOT CHANGE ANY OPTIONS ABOVE THIS LINE!
 
