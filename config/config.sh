@@ -328,10 +328,10 @@ run_function check_server_automation_env_file_exists
 # Result from function above
 if [[ "$SERVER_AUTOMATION_ENV_FILE_EXISTS" == true ]]; then
   [[ "$SILENT" != true ]] && echowarning \
-    "It seems Server Automation was already configured in this server \
-     \nif you continue now, all settings will be replaced and we will NOT \
-      \nbe able to restore previous version automatically, but you check \
-      \nthe .env backup files that will be placed at: \
+    "It seems Server Automation was already configured in this server, \
+     \nif you continue, all settings will be replaced and we will NOT \
+      \nbe able to restore previous version automatically, but check \
+      \nthe .env files with a '.backup_' tag plus a date placed at: \
        \n\n'$SCRIPT_PATH/'\n"
 
   if [[ "$REPLY_YES" == true ]]; then
