@@ -175,6 +175,10 @@ do
         # ACTIVATE_TLS=true
         # shift 1
         # ;;
+        --verify-dns)
+        VERIFY_DNS=true
+        shift 1
+        ;;
         --with-www)
         WITH_WWW=true
         shift 1
