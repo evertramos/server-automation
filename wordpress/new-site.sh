@@ -179,6 +179,14 @@ do
         WITH_WWW=true
         shift 1
         ;;
+        --pid-tag=*)
+        ARG_PID_TAG="${1#*=}"
+        if [[ $ARG_PID_TAG == "" ]]; then
+            echoerr "Invalid option for --pid-tag";
+            break;
+        fi
+        shift 1
+        ;;
         --yes)
         REPLY_YES=true
         shift 1
@@ -210,17 +218,19 @@ done
 # Check if there is an .env file in local folder
 run_function checklocalenvfile
 
-# @todo - the PID must use an user id in order to run multiple times in the same server - improvement
 # Specific PID File if needs to run multiple scripts
-NEW_PID_FILE=${PID_FILE_NEW_SITE:-".new_site"}
+LOCAL_NEW_PID_FILE=${PID_FILE_NEW_SITE:-".new_site.pid"}
+if [[ $ARG_PID_TAG == "" ]]; then
+  NEW_PID_FILE=${LOCAL_NEW_PID_FILE}
+else
+  NEW_PID_FILE=".${ARG_PID_TAG}-${LOCAL_NEW_PID_FILE:1}"
+fi
 
 # Run initial check function
 run_function starts_initial_check $NEW_PID_FILE
 
 # Save PID
-save_pid $NEW_PID_FILE
-# @todo - this PID file name must be reset when running the script more
-# than once at the same time, improvement to be done!
+system_save_pid $NEW_PID_FILE
 
 # DO NOT CHANGE ANY OPTIONS ABOVE THIS LINE!
 
