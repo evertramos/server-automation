@@ -15,6 +15,8 @@
 
 # Bash settings (do not mess with it)
 shopt -s nullglob globstar
+# =) unless you have read the following with good care! =)
+# https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 
 # Get the script name and its file real path
 SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
