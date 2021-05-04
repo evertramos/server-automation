@@ -23,6 +23,9 @@ SCRIPT_NAME="${0##*/}"
 # Source basescript functions
 source $SCRIPT_PATH"/../basescript/bootstrap.sh"
 
+# Source server-automation functions
+source $SCRIPT_PATH"/../localscript/bootstrap.sh"
+
 # Source localscripts
 source $SCRIPT_PATH"/localscript/bootstrap.sh"
 
