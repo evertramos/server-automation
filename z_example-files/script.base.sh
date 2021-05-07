@@ -26,6 +26,10 @@ source $SCRIPT_PATH"/../basescript/bootstrap.sh"
 # Source localscripts
 source $SCRIPT_PATH"/localscript/bootstrap.sh"
 
+# Log
+log "Start execution"
+log "$@"
+
 #-----------------------------------------------------------------------
 # Process arguments
 #-----------------------------------------------------------------------
@@ -35,7 +39,7 @@ do
     -s)
     ARG_SOURCE_FOLDER="${2}"
     if [[ $ARG_SOURCE_FOLDER == "" ]]; then 
-      echoerr "Invalid option for -s"; 
+      echoerror "Invalid option for -s";
       break;
     fi
     shift 2
@@ -43,7 +47,7 @@ do
     --source=*)
     ARG_SOURCE_FOLDER="${1#*=}"
     if [[ $ARG_SOURCE_FOLDER == "" ]]; then 
-      echoerr "Invalid option for --source=''"; 
+      echoerror "Invalid option for --source=''";
       break;
     fi
     shift 1
@@ -51,7 +55,7 @@ do
     -d)
     ARG_DESTINATION_FOLDER="${2}"
     if [[ $ARG_DESTINATION_FOLDER == "" ]]; then 
-      echoerr "Invalid option for -d"; 
+      echoerror "Invalid option for -d";
       break;
     fi
     shift 2
@@ -59,7 +63,7 @@ do
     --destination=*)
     ARG_DESTINATION_FOLDER="${1#*=}"
     if [[ $ARG_DESTINATION_FOLDER == "" ]]; then 
-      echoerr "Invalid option for --destination=''"; 
+      echoerror "Invalid option for --destination=''";
       break;
     fi
     shift 1
@@ -67,7 +71,7 @@ do
     -u)
     ARG_URL="${2}"
     if [[ $ARG_URL == "" ]]; then 
-      echoerr "Invalid option for -u"; 
+      echoerror "Invalid option for -u";
       break;
     fi
     shift 2
@@ -75,7 +79,7 @@ do
     --url=*)
     ARG_URL="${1#*=}"
     if [[ $ARG_URL == "" ]]; then 
-      echoerr "Invalid option for --url"; 
+      echoerror "Invalid option for --url";
       break;
     fi
     shift 1
@@ -83,7 +87,7 @@ do
     --backup-id=*)
     ARG_BACKUP_ID="${1#*=}"
     if [[ $ARG_BACKUP_ID == "" ]]; then 
-      echoerr "Invalid option for --backup-id=''"; 
+      echoerror "Invalid option for --backup-id=''";
       break;
     fi
     shift 1
@@ -91,7 +95,7 @@ do
     --filter=*)
     ARG_FILTER="${1#*=}"
     if [[ $ARG_FILTER == "" ]]; then 
-      echoerr "Invalid option for --filter=''"; 
+      echoerror "Invalid option for --filter=''";
       break;
     fi
     shift 1
@@ -133,7 +137,7 @@ do
     exit 0
     ;;
     *)
-    echoerr "Unknown argument: $1" false
+    echoerror "Unknown argument: $1" false
     usage_backup
     exit 0
     ;;
@@ -151,7 +155,7 @@ done
 run_function starts_initial_check $NEW_PID_FILE
 
 # Check if there is an .env file in local folder
-run_function checklocalenvfile
+run_function check_local_env_file
 
 # Save PID
 system_save_pid $NEW_PID_FILE
@@ -167,7 +171,7 @@ local_undo_restore()
 
     LOCAL_KEEP_RESTORE_FILES=${1:-$KEEP_RESTORE_FILES}
     
-    echoerr "It seems something went wrong running '${FUNCNAME[0]}' we will try to UNDO all actions done by this script. Please make sure everything was back in place as when you started." false
+    echoerror "It seems something went wrong running '${FUNCNAME[0]}' we will try to UNDO all actions done by this script. Please make sure everything was back in place as when you started." false
 
     # If any service was started make sure to stop it
     if [[ "$ACTION_DOCKER_COMPOSE_STARTED" == true ]]; then
@@ -198,11 +202,11 @@ local_undo_restore()
 }
 
 #-----------------------------------------------------------------------
-# Arguments validation and variables fullfillment
+# Arguments validation and variables fulfillment
 #-----------------------------------------------------------------------
 # Check if Source Folder or SITES_FOLDER from base .env file is set 
 if [[ $ARG_SOURCE_FOLDER == "" ]] && [[ $SITES_FOLDER == "" ]]; then 
-  echoerr "It seems you did not set the option SITES_FOLDER in your base .env file. If you intend to use this script without this settings please use --source='' option to inform the initial directory where your sites are located."
+  echoerror "It seems you did not set the option SITES_FOLDER in your base .env file. If you intend to use this script without this settings please use --source='' option to inform the initial directory where your sites are located."
 else
   SOURCE_FOLDER=${ARG_SOURCE_FOLDER:-$SITES_FOLDER}
   
@@ -212,7 +216,7 @@ fi
 
 # Check if Backup Folder is set (BACKUP_FOLDER in base .env file)
 if [[ $ARG_DESTINATION_FOLDER == "" ]] && [[ $BACKUP_FOLDER == "" ]]; then 
-  echoerr "It seems you did not set the option BACKUP_FOLDER in your base .env file. If you intend to use this script without this settings please use --destination='' option to set the backup directory location."
+  echoerror "It seems you did not set the option BACKUP_FOLDER in your base .env file. If you intend to use this script without this settings please use --destination='' option to set the backup directory location."
 else
   DESTINATION_FOLDER=${ARG_DESTINATION_FOLDER:-$BACKUP_FOLDER}
   
@@ -229,7 +233,7 @@ fi
 
 # Check if user informed --url and --all-sites
 if [[ $ARG_URL != "" ]] && [[ "$ALL_SITES" == true ]]; then 
-  echoerr "You have entered the option --url and --all-sites. Please check your command and inform only one of these options."
+  echoerror "You have entered the option --url and --all-sites. Please check your command and inform only one of these options."
 fi
 
 # Check if user informed the Folder/Site (ARG_URL) that should backup
