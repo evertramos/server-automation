@@ -9,7 +9,7 @@
 #
 #-----------------------------------------------------------------------
 #
-# Be carefull when editing this file, it is part of a bigger script!
+# Be careful when editing this file, it is part of a bigger script!
 #
 #-----------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ local_update_docker_compose_file()
 
     LOCAL_FULL_PATH=${1}
 
-    [[ $LOCAL_FULL_PATH == ""  || $LOCAL_FULL_PATH == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_FULL_PATH == "" || $LOCAL_FULL_PATH == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Updating all variables in .env file for a new site (file: ${LOCAL_FULL_PATH})"
 
