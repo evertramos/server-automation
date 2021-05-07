@@ -9,7 +9,7 @@
 #
 #-----------------------------------------------------------------------
 #
-# Be carefull when editing this file, it is part of a bigger script!
+# Be careful when editing this file, it is part of a bigger script!
 #
 #-----------------------------------------------------------------------
 
@@ -18,7 +18,7 @@
 # 1. Check if the .env file exists in the current folder
 #-----------------------------------------------------------------------
 
-checklocalenvfile() 
+check_local_env_file()
 {
     [[ "$DEBUG" == true ]] && echo "Check if local '.env' file is set."
 
