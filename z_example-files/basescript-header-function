@@ -13,7 +13,7 @@
 #
 #-----------------------------------------------------------------------
 #
-# Be carefull when editing this file, it is part of a bigger script!
+# Be careful when editing this file, it is part of a bigger script!
 #
 # Basescript - https://github.com/evertramos/basescript
 #
@@ -35,7 +35,7 @@ function_name()
    
 #  LOCAL_=${1:-null}
 
-#  [[ $LOCAL_ == "" ]] && echoerr "You must inform the required argument(s) to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
+#  [[ $LOCAL_ == "" ]] && echoerror "You must inform the required argument(s) to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
  
 #  [[ "$DEBUG" == true ]] && echo ""
 #  [[ "$SILENT" == true ]] && echo ""
