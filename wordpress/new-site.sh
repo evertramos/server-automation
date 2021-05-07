@@ -44,7 +44,7 @@ do
         -d)
         ARG_DESTINATION_FOLDER="${2}"
         if [[ $ARG_DESTINATION_FOLDER == "" ]]; then 
-            echoerr "Invalid option for -d"; 
+            echoerror "Invalid option for -d";
             break;
         fi
         shift 2
@@ -52,7 +52,7 @@ do
         --destination=*)
         ARG_DESTINATION_FOLDER="${1#*=}"
         if [[ $ARG_DESTINATION_FOLDER == "" ]]; then 
-            echoerr "Invalid option for --destination=''"; 
+            echoerror "Invalid option for --destination=''";
             break;
         fi
         shift 1
@@ -60,7 +60,7 @@ do
         -nu)
         ARG_NEW_URL="${2}"
         if [[ $ARG_NEW_URL == "" ]]; then 
-            echoerr "Invalid option for -u"; 
+            echoerror "Invalid option for -u";
             break;
         fi
         shift 2
@@ -68,7 +68,7 @@ do
         --new-url=*)
         ARG_NEW_URL="${1#*=}"
         if [[ $ARG_NEW_URL == "" ]]; then 
-            echoerr "Invalid option for --url"; 
+            echoerror "Invalid option for --url";
             break;
         fi
         shift 1
@@ -76,7 +76,7 @@ do
         --git-repo=*)
         ARG_GIT_REPO="${1#*=}"
         if [[ $ARG_GIT_REPO == "" ]]; then 
-            echoerr "Invalid option for --git-repo";
+            echoerror "Invalid option for --git-repo";
             break;
         fi
         shift 1
@@ -84,7 +84,7 @@ do
         --git-tag=*)
         ARG_GIT_TAG="${1#*=}"
         if [[ $ARG_GIT_TAG == "" ]]; then 
-            echoerr "Invalid option for --git-tag";
+            echoerror "Invalid option for --git-tag";
             break;
         fi
         shift 1
@@ -92,7 +92,7 @@ do
         --site-image=*)
         ARG_SITE_IMAGE="${1#*=}"
         if [[ $ARG_SITE_IMAGE == "" ]]; then 
-            echoerr "Invalid option for --site-image"; 
+            echoerror "Invalid option for --site-image";
             break;
         fi
         shift 1
@@ -100,7 +100,7 @@ do
         --site-version=*)
         ARG_SITE_VERSION="${1#*=}"
         if [[ $ARG_SITE_VERSION == "" ]]; then 
-            echoerr "Invalid option for --site-version"; 
+            echoerror "Invalid option for --site-version";
             break;
         fi
         shift 1
@@ -108,7 +108,7 @@ do
         --db-image=*)
         ARG_DB_IMAGE="${1#*=}"
         if [[ $ARG_DB_IMAGE == "" ]]; then 
-            echoerr "Invalid option for --db-image"; 
+            echoerror "Invalid option for --db-image";
             break;
         fi
         shift 1
@@ -116,7 +116,7 @@ do
         --db-version=*)
         ARG_DB_VERSION="${1#*=}"
         if [[ $ARG_DB_VERSION == "" ]]; then 
-            echoerr "Invalid option for --db-version"; 
+            echoerror "Invalid option for --db-version";
             break;
         fi
         shift 1
@@ -125,7 +125,7 @@ do
         # --db-host=*)
         # ARG_DB_HOST="${1#*=}"
         # if [[ $ARG_DB_HOST == "" ]]; then 
-        #     echoerr "Invalid option for --db-host"; 
+        #     echoerror "Invalid option for --db-host";
         #     break;
         # fi
         # shift 1
@@ -133,7 +133,7 @@ do
         # --db-user=*)
         # ARG_DB_USER="${1#*=}"
         # if [[ $ARG_DB_USER == "" ]]; then 
-        #     echoerr "Invalid option for --db-user"; 
+        #     echoerror "Invalid option for --db-user";
         #     break;
         # fi
         # shift 1
@@ -141,7 +141,7 @@ do
         # --db-pass=*)
         # ARG_DB_PASS="${1#*=}"
         # if [[ $ARG_DB_PASS == "" ]]; then 
-        #     echoerr "Invalid option for --db-pass"; 
+        #     echoerror "Invalid option for --db-pass";
         #     break;
         # fi
         # shift 1
@@ -149,7 +149,7 @@ do
         # --letsencrypt-email=*)
         # ARG_LETSENCRYPT_EMAIL="${1#*=}"
         # if [[ $ARG_LETSENCRYPT_EMAIL == "" ]]; then 
-        #     echoerr "Invalid option for --letsencrypt-email"; 
+        #     echoerror "Invalid option for --letsencrypt-email";
         #     break;
         # fi
         # shift 1
@@ -157,7 +157,7 @@ do
         -csut)
         ARG_COMPOSE_SERVICE_UNIQUE_TAG="${2}"
         if [[ $ARG_COMPOSE_SERVICE_UNIQUE_TAG == "" ]]; then 
-            echoerr "Invalid option for -csut"; 
+            echoerror "Invalid option for -csut";
             break;
         fi
         shift 2
@@ -165,7 +165,7 @@ do
         --compose-service-unique-tag=*)
         ARG_COMPOSE_SERVICE_UNIQUE_TAG="${1#*=}"
         if [[ $ARG_COMPOSE_SERVICE_UNIQUE_TAG == "" ]]; then 
-            echoerr "Invalid option for --compose-service-unique-tag"; 
+            echoerror "Invalid option for --compose-service-unique-tag";
             break;
         fi
         shift 1
@@ -186,7 +186,7 @@ do
         --pid-tag=*)
         ARG_PID_TAG="${1#*=}"
         if [[ $ARG_PID_TAG == "" ]]; then
-            echoerr "Invalid option for --pid-tag";
+            echoerror "Invalid option for --pid-tag";
             break;
         fi
         shift 1
@@ -208,7 +208,7 @@ do
         exit 0
         ;;
         *)
-        echoerr "Unknown argument: $1" false
+        echoerror "Unknown argument: $1" false
         usage_new_site
         exit 0
         ;;
@@ -220,7 +220,7 @@ done
 #-----------------------------------------------------------------------
 
 # Check if there is an .env file in local folder
-run_function checklocalenvfile
+run_function check_local_env_file
 
 # Specific PID File if needs to run multiple scripts
 LOCAL_NEW_PID_FILE=${PID_FILE_NEW_SITE:-".new_site.pid"}
@@ -239,7 +239,7 @@ system_save_pid $NEW_PID_FILE
 # DO NOT CHANGE ANY OPTIONS ABOVE THIS LINE!
 
 #-----------------------------------------------------------------------
-# Undo function
+# [function] Undo script actions
 #-----------------------------------------------------------------------
 local_undo_restore()
 {
@@ -247,7 +247,7 @@ local_undo_restore()
 
     LOCAL_KEEP_RESTORE_FILES=${1:-$KEEP_RESTORE_FILES}
     
-    echoerr "It seems something went wrong running '${FUNCNAME[0]}' we will try to UNDO all actions done by this script. Please make sure everything was back in place as when you started." false
+    echoerror "It seems something went wrong running '${FUNCNAME[0]}' we will try to UNDO all actions done by this script. Please make sure everything was back in place as when you started." false
 
     # If any service was started make sure to stop it
     if [[ "$ACTION_DOCKER_COMPOSE_STARTED" == true ]]; then
@@ -278,15 +278,57 @@ local_undo_restore()
 }
 
 #-----------------------------------------------------------------------
-# Arguments validation and variables fullfillment
+# [function] Docker images and version check
+#-----------------------------------------------------------------------
+local_check_docker_hub_image_version() {
+  local LOCAL_DOCKER_IMAGE_NAME LOCAL_DOCKER_IMAGE_VERSION
+
+  LOCAL_DOCKER_IMAGE_NAME=${1:-null}
+  LOCAL_DOCKER_IMAGE_VERSION=${2:-null}
+
+  # Check image exists
+  run_function dockerhub_check_image_exists $LOCAL_DOCKER_IMAGE_NAME
+
+  if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
+    echoerror "It seems the image '$LOCAL_DOCKER_IMAGE_NAME' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
+    local_undo_restore
+  fi
+
+  # Check if image and version exists in docker hub
+  run_function dockerhub_check_image_exists $LOCAL_DOCKER_IMAGE_NAME $LOCAL_DOCKER_IMAGE_VERSION
+
+  if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
+    echoerror "It seems the image '$LOCAL_DOCKER_IMAGE_NAME:$LOCAL_DOCKER_IMAGE_VERSION' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
+    local_undo_restore
+  fi
+}
+
+#-----------------------------------------------------------------------
+# Check if the .env file was already configured for Server-Automation
+#-----------------------------------------------------------------------
+# @todo - update this function to server-automation .env file if not present it must be configured before running this script
+run_function check_server_automation_env_file_exists
+
+# Result from function above
+if [[ "$SERVER_AUTOMATION_ENV_FILE_EXISTS" != true ]]; then
+  [[ "$SILENT" != true ]] && echowarning \
+    "It seems you are running server-automation for the first time! \
+    We will first need to run You must configure the server-automation '.env' file before continue!"
+fi
+
+echo $SITES_FOLDER
+exit 0
+
+#-----------------------------------------------------------------------
+# Arguments validation and variables fulfillment
 #
-# In the 'new-site.sh' script the DESTIANTION_FOLDER is where
+# In the 'new-site.sh' script the DESTINATION_FOLDER is where
 # the new site will be placed (SITES_FOLDER in base .env)
 #-----------------------------------------------------------------------
 
 # Check if Sites Folder is set (--destination) or SITES_FOLDER from base .env is set
 if [[ $ARG_DESTINATION_FOLDER == "" ]] && [[ $SITES_FOLDER == "" ]]; then 
-    echoerr "It seems you did not set the option SITES_FOLDER in your base .env file. If you intend to use this script without this settings please use --destination='' option to inform where your site should be located."
+    echoerror "It seems you did not set the option SITES_FOLDER in your base .env file. If you intend to use this script without this settings please use --destination='' option to inform where your site should be located."
 else
     DESTINATION_FOLDER=${ARG_DESTINATION_FOLDER:-$SITES_FOLDER}
     
@@ -295,7 +337,10 @@ else
 
     # Result from folder exists function
     if [[ "$FOLDER_EXIST" == false ]]; then
-        [[ "$SILENT" != true ]] && echowarning "The destination folder, where you want to place your site, does not exist in your server. We will create it for your. Your site will be located at '$DESTINATION_FOLDER'. This action will not be undone by this script."
+        [[ "$SILENT" != true ]] && echowarning "You have set the destination folder to: \
+          \n'$DESTINATION_FOLDER' \
+          \nThis folder does not exist, we will create it for you. \
+          \nThis action will not be undone by this script in case of failure."
         run_function common_create_folder $DESTINATION_FOLDER
     fi
 fi
@@ -325,7 +370,7 @@ else
     # Get Random string for clone service name
     run_function common_generate_random_string
     if [[ "$RANDOM_STRING" == 0 ]] || [[ "$RANDOM_STRING" == "" ]]; then
-        echoerr "Error generating random string to docker servide name"
+        echoerror "Error generating random string to docker servide name"
     fi
 
     COMPOSE_UNIQUE_TAG=$RANDOM_STRING
@@ -347,7 +392,7 @@ if [[ "$FOLDER_EXIST" == false ]]; then
 else
     # Stop execution if folder already exist
     ACTION_SITE_PATH_CREATED=false
-    echoerr "The destination folder already exists. Please check the following path '$LOCAL_SITE_FULL_PATH'." false
+    echoerror "The destination folder already exists. Please check the following path '$LOCAL_SITE_FULL_PATH'." false
     local_undo_restore
 fi
 
@@ -365,8 +410,8 @@ fi
 #-----------------------------------------------------------------------
 run_function dockerhub_check_image_exists $LOCAL_SITE_IMAGE 
 
-if [[ "$RESPONSE_IMAGE_EXIST" != true ]]; then
-    echoerr "It seems the image '$LOCAL_SITE_IMAGE' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
+if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
+    echoerror "It seems the image '$LOCAL_SITE_IMAGE' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
     local_undo_restore
 fi
 
@@ -381,7 +426,7 @@ else
             LOCAL_SITE_VERSION="latest"
         else
             run_function dockerhub_list_tags $LOCAL_SITE_IMAGE
-            run_function select_one_option "${HUB_REPO_TAGS[*]}" "Please select a tag for the image '$LOCAL_SITE_IMAGE' (the list below comes from https://hub.docker.com):"
+            run_function select_one_option "${DOCKERHUB_LIST_TAGS[*]}" "Please select a tag for the image '$LOCAL_SITE_IMAGE' (the list below comes from https://hub.docker.com):"
             
             [[ $SELECT_ONE_OPTION_NAME == "" ]] && echowarning "Once you did not select any option, 'latest' will be used."
             LOCAL_SITE_VERSION=${SELECT_ONE_OPTION_NAME:-"latest"}
@@ -394,8 +439,8 @@ fi
 #-----------------------------------------------------------------------
 run_function dockerhub_check_image_exists $LOCAL_SITE_IMAGE $LOCAL_SITE_VERSION
 
-if [[ "$RESPONSE_IMAGE_EXIST" != true ]]; then
-    echoerr "It seems the image '$LOCAL_SITE_IMAGE:$LOCAL_SITE_VERSION' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
+if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
+    echoerror "It seems the image '$LOCAL_SITE_IMAGE:$LOCAL_SITE_VERSION' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
     local_undo_restore
 fi
 
@@ -413,8 +458,8 @@ fi
 #-----------------------------------------------------------------------
 run_function dockerhub_check_image_exists $LOCAL_DB_IMAGE
 
-if [[ "$RESPONSE_IMAGE_EXIST" != true ]]; then
-    echoerr "It seems the image '$LOCAL_DB_IMAGE' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
+if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
+    echoerror "It seems the image '$LOCAL_DB_IMAGE' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
     local_undo_restore
 fi
 
@@ -429,7 +474,7 @@ else
             LOCAL_DB_VERSION="latest"
         else
             run_function dockerhub_list_tags $LOCAL_DB_IMAGE
-            run_function select_one_option "${HUB_REPO_TAGS[*]}" "Please select a tag for the image '$LOCAL_DB_IMAGE' (the list below comes from https://hub.docker.com):"
+            run_function select_one_option "${DOCKERHUB_LIST_TAGS[*]}" "Please select a tag for the image '$LOCAL_DB_IMAGE' (the list below comes from https://hub.docker.com):"
             
             [[ $SELECT_ONE_OPTION_NAME == "" ]] && echowarning "Once you did not select any option, 'latest' will be used."
             LOCAL_DB_VERSION=${SELECT_ONE_OPTION_NAME:-"latest"}
@@ -442,8 +487,8 @@ fi
 #-----------------------------------------------------------------------
 run_function dockerhub_check_image_exists $LOCAL_DB_IMAGE $LOCAL_DB_VERSION
 
-if [[ "$RESPONSE_IMAGE_EXIST" != true ]]; then
-    echoerr "It seems the image '$LOCAL_DB_IMAGE:$LOCAL_DB_VERSION' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
+if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
+    echoerror "It seems the image '$LOCAL_DB_IMAGE:$LOCAL_DB_VERSION' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
     local_undo_restore
 fi
 
@@ -462,37 +507,17 @@ else
 fi
 
 if [[ "$LOCAL_GIT_REPO" == null ]]; then
-    echoerr "There is no git repo set. Please update the .env file or add --git-repo option.", false
+    echoerror "There is no git repo set. Please update the .env file or add --git-repo option.", false
     local_undo_restore
 fi 
 
 #-----------------------------------------------------------------------
 # Domain creation
+#
+# Parameters: --verify-dns
 #-----------------------------------------------------------------------
-run_function domain_create_domain_if_not_exist $LOCAL_NEW_URL false
-
-ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
-
-if [[ "$domain_create_domain_dns_ERROR" == true ]]; then
-    echo "DOMAIN_ALREADY_ACTIVE_IN_PROXY: $DOMAIN_ALREADY_ACTIVE_IN_PROXY"
-    echo "ACTION_SITE_URL_CREATED: ${DOMAIN_CREATED:-false}"
-    # Manually set to remove domain informed
-    ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
-    echoerr "There was an issue to create this DNS. Please check. Rolling back actions." false
-    local_undo_restore
-fi
-
-if [[ "$DOMAIN_ALREADY_ACTIVE_IN_PROXY" == true ]]; then
-    echo "DOMAIN_ALREADY_ACTIVE_IN_PROXY: $DOMAIN_ALREADY_ACTIVE_IN_PROXY"
-    echo "ACTION_SITE_URL_CREATED: ${DOMAIN_CREATED:-false}"
-    # Manually set to remove domain informed
-    ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
-    echoerr "This URL is already running in this server proxy. Please check. Rolling back actions." false
-    local_undo_restore
-fi
-
-if [[ "$WITH_WWW" == true ]]; then
-    run_function domain_create_domain_if_not_exist "www.$LOCAL_NEW_URL" false
+if [[ "$VERIFY_DNS" == true ]]; then
+    run_function domain_create_domain_if_not_exist $LOCAL_NEW_URL false
 
     ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
 
@@ -501,7 +526,7 @@ if [[ "$WITH_WWW" == true ]]; then
         echo "ACTION_SITE_URL_CREATED: ${DOMAIN_CREATED:-false}"
         # Manually set to remove domain informed
         ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
-        echoerr "There was an issue to create this DNS with 'www' option. Please check. Rolling back actions." false
+        echoerror "There was an issue to create this DNS. Please check. Rolling back actions." false
         local_undo_restore
     fi
 
@@ -510,8 +535,32 @@ if [[ "$WITH_WWW" == true ]]; then
         echo "ACTION_SITE_URL_CREATED: ${DOMAIN_CREATED:-false}"
         # Manually set to remove domain informed
         ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
-        echoerr "This URL is already running in this server proxy. Please check. Rolling back actions." false
+        echoerror "This URL is already running in this server proxy. Please check. Rolling back actions." false
         local_undo_restore
+    fi
+
+    if [[ "$WITH_WWW" == true ]]; then
+        run_function domain_create_domain_if_not_exist "www.$LOCAL_NEW_URL" false
+
+        ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
+
+        if [[ "$domain_create_domain_dns_ERROR" == true ]]; then
+            echo "DOMAIN_ALREADY_ACTIVE_IN_PROXY: $DOMAIN_ALREADY_ACTIVE_IN_PROXY"
+            echo "ACTION_SITE_URL_CREATED: ${DOMAIN_CREATED:-false}"
+            # Manually set to remove domain informed
+            ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
+            echoerror "There was an issue to create this DNS with 'www' option. Please check. Rolling back actions." false
+            local_undo_restore
+        fi
+
+        if [[ "$DOMAIN_ALREADY_ACTIVE_IN_PROXY" == true ]]; then
+            echo "DOMAIN_ALREADY_ACTIVE_IN_PROXY: $DOMAIN_ALREADY_ACTIVE_IN_PROXY"
+            echo "ACTION_SITE_URL_CREATED: ${DOMAIN_CREATED:-false}"
+            # Manually set to remove domain informed
+            ACTION_SITE_URL_CREATED=${DOMAIN_CREATED:-false}
+            echoerror "This URL is already running in this server proxy. Please check. Rolling back actions." false
+            local_undo_restore
+        fi
     fi
 fi
 
@@ -553,12 +602,12 @@ LOCAL_LETSENCRYPT_EMAIL=${ARG_LETSENCRYPT_EMAIL:-$LETSENCRYPT_EMAIL}
 # Check if site and db container's name are already running
 #-----------------------------------------------------------------------
 run_function docker_check_container_is_running "$LOCAL_CONTAINER_SITE_NAME"
-if [[ "$CONTAINER_EXISTS" == true ]]; then
+if [[ "$DOCKER_CONTAINER_IS_RUNNING" == true ]]; then
     echowarning "It seems the container '$LOCAL_CONTAINER_SITE_NAME' is alreay in use in this server. Please try again or update the unique tag option."
     local_undo_restore
 fi
 run_function docker_check_container_is_running "$LOCAL_CONTAINER_DB_NAME"
-if [[ "$CONTAINER_EXISTS" == true ]]; then
+if [[ "$DOCKER_CONTAINER_IS_RUNNING" == true ]]; then
     echowarning "It seems the container '$LOCAL_CONTAINER_DB_NAME' is alreay in use in this server. Please try again or update the unique tag option."
     local_undo_restore
 fi
@@ -589,7 +638,7 @@ fi
 run_function docker_compose_start "${LOCAL_SITE_FULL_PATH%/}/compose"
 
 if [[ "$ERROR_DOCKER_COMPOSE_START" == true ]]; then
-    echoerr "There was an error starting the service at '${LOCAL_SITE_FULL_PATH%/}/compose'"
+    echoerror "There was an error starting the service at '${LOCAL_SITE_FULL_PATH%/}/compose'"
     ACTION_DOCKER_COMPOSE_STARTED=true
     local_undo_restore
 fi
