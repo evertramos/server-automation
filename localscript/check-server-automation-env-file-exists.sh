@@ -27,6 +27,7 @@ check_server_automation_env_file_exists()
     [[ "$DEBUG" == true ]] && echo "Check if '.env' file exists for the server-automation."
 
     if [[ -e $LOCAL_SCRIPT_PATH/../.env ]]; then
+        source $LOCAL_SCRIPT_PATH/../.env
         SERVER_AUTOMATION_ENV_FILE_EXISTS=true
     fi
 }
