@@ -32,7 +32,8 @@ source $SCRIPT_PATH"/../localscript/bootstrap.sh"
 source $SCRIPT_PATH"/localscript/bootstrap.sh"
 
 # Log
-log "Start execution"
+printf "${energy} Start execution '${SCRIPT_PATH}/${SCRIPT_NAME} "
+echo "$@':"
 log "$@"
 
 #-----------------------------------------------------------------------
