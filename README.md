@@ -10,6 +10,13 @@ Scripts to automate your work! (bash script, docker, docker-compose, dns etc)
 
 ----
 
+## 4. Start new WP script
+
+This script is meant to start new site using the standards of these scripts.
+
+[Link to documentation](./start-new-wp-site/README.md)
+
+
 
 Scripts developed to make your life easier!
 
@@ -39,8 +46,7 @@ This script is meant to install plugins in a running Wordpress.
 
 [Link to documentation](./plugin-install-wp/README.md)
 
-## 4. Start new WP script
 
-This script is meant to start new site using the standards of these scripts.
 
-[Link to documentation](./start-new-wp-site/README.md)
+
+https://www.gnu.org/software/bash/manual/
