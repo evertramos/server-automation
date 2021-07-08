@@ -1,7 +1,10 @@
-# server-automation
+# Server Automation
+
 Scripts to automate your work! (bash script, docker, docker-compose, dns etc)
 
-> These scripts were meant to do one thing and do it good!
+## Requirements
+
+- sudo
 
 # @todo
 
@@ -14,7 +17,7 @@ Scripts to automate your work! (bash script, docker, docker-compose, dns etc)
 
 This script is meant to start new site using the standards of these scripts.
 
-[Link to documentation](./start-new-wp-site/README.md)
+[Link to documentation](./wordpress/README.md)
 
 
 

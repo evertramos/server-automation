@@ -176,6 +176,10 @@ do
         # ACTIVATE_TLS=true
         # shift 1
         # ;;
+        --skip-docker-image-check)
+        SKIP_DOCKER_IMAGE_CHECK=true
+        shift 1
+        ;;
         --verify-dns)
         VERIFY_DNS=true
         shift 1
@@ -248,7 +252,7 @@ local_undo_restore()
 
     LOCAL_KEEP_RESTORE_FILES=${1:-$KEEP_RESTORE_FILES}
     
-    echoerror "It seems something went wrong running '${FUNCNAME[0]}' we will try to UNDO all actions done by this script. Please make sure everything was back in place as when you started." false
+    echoerror "It seems something went wrong running '$SCRIPT_NAME'.\nWe will try to UNDO all actions done by this script.\nPlease make sure everything was back in place as when you started." false
 
     # If any service was started make sure to stop it
     if [[ "$ACTION_DOCKER_COMPOSE_STARTED" == true ]]; then
@@ -261,7 +265,7 @@ local_undo_restore()
     if [[ "$ACTION_SITE_PATH_CREATED" == true ]]; then
         [[ "$SILENT" != true ]] && echowarning "[undo] Creating site folder '$LOCAL_SITE_FULL_PATH'."
         # Remove folder
-        run_function system_safe_delete_folder $LOCAL_SITE_FULL_PATH true
+        run_function system_safe_delete_folder $LOCAL_SITE_FULL_PATH ${BASE_SERVER_PATH} true
         ACTION_SITE_PATH_CREATED=false
     fi
 
@@ -308,6 +312,7 @@ local_check_docker_hub_image_version() {
 # Check if the .env file was already configured for Server-Automation
 #-----------------------------------------------------------------------
 # @todo - update this function to server-automation .env file if not present it must be configured before running this script
+# [?] this is done by the env function - check if needed
 run_function check_server_automation_env_file_exists
 
 # Result from function above
@@ -316,9 +321,6 @@ if [[ "$SERVER_AUTOMATION_ENV_FILE_EXISTS" != true ]]; then
     "It seems you are running server-automation for the first time! \
     We will first need to run You must configure the server-automation '.env' file before continue!"
 fi
-
-echo $SITES_FOLDER
-exit 0
 
 #-----------------------------------------------------------------------
 # Arguments validation and variables fulfillment
@@ -409,13 +411,6 @@ fi
 #-----------------------------------------------------------------------
 # Check if image exists in docker hub
 #-----------------------------------------------------------------------
-run_function dockerhub_check_image_exists $LOCAL_SITE_IMAGE 
-
-if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
-    echoerror "It seems the image '$LOCAL_SITE_IMAGE' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
-    local_undo_restore
-fi
-
 if [[ $ARG_SITE_VERSION != "" ]]; then
     LOCAL_SITE_VERSION=${ARG_SITE_VERSION}
 else
@@ -438,12 +433,7 @@ fi
 #-----------------------------------------------------------------------
 # Check if image and version exists in docker hub
 #-----------------------------------------------------------------------
-run_function dockerhub_check_image_exists $LOCAL_SITE_IMAGE $LOCAL_SITE_VERSION
-
-if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
-    echoerror "It seems the image '$LOCAL_SITE_IMAGE:$LOCAL_SITE_VERSION' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
-    local_undo_restore
-fi
+[[ "$SKIP_DOCKER_IMAGE_CHECK" != true ]] && [[ ! "$REPLY_YES" == true ]] && local_check_docker_hub_image_version $LOCAL_SITE_IMAGE $LOCAL_SITE_VERSION
 
 #-----------------------------------------------------------------------
 # Database options (--db-image | --db-version)
@@ -457,13 +447,6 @@ fi
 #-----------------------------------------------------------------------
 # Check if image exists in docker hub
 #-----------------------------------------------------------------------
-run_function dockerhub_check_image_exists $LOCAL_DB_IMAGE
-
-if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
-    echoerror "It seems the image '$LOCAL_DB_IMAGE' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
-    local_undo_restore
-fi
-
 if [[ $ARG_DB_VERSION != "" ]]; then
     LOCAL_DB_VERSION=${ARG_DB_VERSION}
 else
@@ -486,12 +469,7 @@ fi
 #-----------------------------------------------------------------------
 # Check if image and version exists in docker hub
 #-----------------------------------------------------------------------
-run_function dockerhub_check_image_exists $LOCAL_DB_IMAGE $LOCAL_DB_VERSION
-
-if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
-    echoerror "It seems the image '$LOCAL_DB_IMAGE:$LOCAL_DB_VERSION' does not exist in docker hub (https://hub.docker.com) or the site is down. Wait a few minutes and try again." false
-    local_undo_restore
-fi
+[[ "$SKIP_DOCKER_IMAGE_CHECK" != true ]] && [[ ! "$REPLY_YES" == true ]] && local_check_docker_hub_image_version $LOCAL_DB_IMAGE $LOCAL_DB_VERSION
 
 #-----------------------------------------------------------------------
 # Site git repo and tag/branch (--git-repo | --git-tag)
@@ -568,8 +546,7 @@ fi
 #-----------------------------------------------------------------------
 # Clone the repo
 #-----------------------------------------------------------------------
-run_function git_clone_repo $LOCAL_GIT_REPO $DESTINATION $LOCAL_SITE_FULL_PATH $LOCAL_GIT_TAG "compose"
-
+run_function git_clone_repo $LOCAL_GIT_REPO $LOCAL_SITE_FULL_PATH $LOCAL_GIT_TAG "compose"
 if [[ $RESPONSE_GIT_CLONE_REPO != "" ]]; then
     echowarning "$RESPONSE_GIT_CLONE_REPO"
     local_undo_restore

@@ -31,7 +31,7 @@ local_update_docker_compose_file()
 
     [[ $LOCAL_FULL_PATH == "" || $LOCAL_FULL_PATH == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" == true ]] && echo "Updating all variables in .env file for a new site (file: ${LOCAL_FULL_PATH})"
+    [[ "$DEBUG" == true ]] && echo "[local_update_docker_compose_file] Updating all variables in .env file for a new site (file: ${LOCAL_FULL_PATH})"
 
     if [[ ! -f "${LOCAL_FULL_PATH%/}/.env" ]]; then
         RESPONSE_LOCAL_UPDATE_DOCKER_COMPOSE_FILE="You must have set '.env' file, which was not found at '${LOCAL_FULL_PATH%/}'"

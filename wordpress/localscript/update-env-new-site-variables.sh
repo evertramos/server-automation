@@ -40,7 +40,8 @@ local_update_env_new_site_variables()
         source ${PROXY_COMPOSE_FOLDER%/}"/.env"
     fi
 
-    run_function env_update_variable $LOCAL_FULL_PATH "COMPOSE_PROJECT_NAME" "$LOCAL_COMPOSE_PROJECT_NAME" true
+    run_function env_update_variable $LOCAL_FULL_PATH "COMPOSE_PROJECT_NAME" "$LOCAL_COMPOSE_PROJECT_NAME" ".env" true
+    [[ "$REPONSE_ENV_UPDATE_VARIABLE" != "" ]] && RESPONSE_LOCAL_UPDATE_ENV_NEW_SITE_VARIABLES=$REPONSE_ENV_UPDATE_VARIABLE && return 0
     run_function env_update_variable $LOCAL_FULL_PATH "NETWORK" "$NETWORK"
 
     run_function env_update_variable $LOCAL_FULL_PATH "DB_IMAGE" "$LOCAL_DB_IMAGE"
