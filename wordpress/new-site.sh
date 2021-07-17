@@ -176,6 +176,10 @@ do
         # ACTIVATE_TLS=true
         # shift 1
         # ;;
+        --disable-letsencrypt)
+        DISABLE_LETSENCRYPT=true
+        shift 1
+        ;;
         --skip-docker-image-check)
         SKIP_DOCKER_IMAGE_CHECK=true
         shift 1

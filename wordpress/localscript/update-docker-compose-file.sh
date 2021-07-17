@@ -43,5 +43,8 @@ local_update_docker_compose_file()
     run_function docker_compose_replace_string $LOCAL_FULL_PATH "$REPLACE_DB_SERVICE_NAME" "$LOCAL_CONTAINER_DB_NAME"
     run_function docker_compose_replace_string $LOCAL_FULL_PATH "$REPLACE_SITE_SERVICE_NAME" "$LOCAL_CONTAINER_SITE_NAME"
 
+    # Comment or uncomment LETSENCRYPT in docker-compose.yml file
+    [[ "$DISABLE_LETSENCRYPT" == true ]] && run_function file_comment_line_with_string "${LOCAL_FULL_PATH%/}/docker-compose.yml" "LETSENCRYPT_HOST" && run_function file_comment_line_with_string ${LOCAL_FULL_PATH%/}"/docker-compose.yml" "LETSENCRYPT_EMAIL"
+
     return 0
 }
