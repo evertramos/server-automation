@@ -1,55 +1,57 @@
-# Server Automation
+# Server Automation 🔥
 
-Scripts to automate your work! (bash script, docker, docker-compose, dns etc)
+Scripts to automate your work and give you more time for your family! 
+(That was my main purpose, reason why I believe it would be useful for some other folks)
 
-## Requirements
+> 🚧 This is a _work in progress_ project 
 
+## Requirements (@todo)
+
+- bash
 - sudo
+- sed
+- awk
 
-# @todo
+## Main Functions
 
-- check domain exist and dns is forwarding before run the new site script, if create/set dns continue...
-- www option on start
+### WordPress scripts
 
-----
+1. New site (./wordpress/new-site.sh)
 
-## 4. Start new WP script
+This script will start a new WordPress site using this repo:
 
-This script is meant to start new site using the standards of these scripts.
+https://github.com/evertramos/docker-wordpress
 
-[Link to documentation](./wordpress/README.md)
+Please check all the options available in the helper (`$ ./new-site.sh -h`) or access:
+
+[Link to WordPress scripts documentation](./wordpress/README.md)
+
+## Roadmap 
+ - [X] Start new WordPress site
+ - [ ] Add ssh support for containers
+ - [ ] Add ftp support for containers
+ - [ ] Backup docker containers (files)
+ - [ ] Cleanup backup files
+ - [ ] Backup WordPress files and databases (volumes + dump)
+ - [ ] Clone WordPress site
+ - [ ] Restore WordPress site from Clone (copy) 
+ - [ ] Restore WordPress site from Backup
+ - [ ] Update WordPress version in running container  
+ - [ ] Install WordPress plugins in running container
+ - [ ] Configure DNS (Amazon + Digital Ocean)
+ - [ ] Configure .env for server-automation *automatically*
+ - [ ] Start log system for server
+ - [ ] 
+ - [ ] 
+ - [ ] 
 
 
-
-Scripts developed to make your life easier!
-
-> Some of the scripts are still under development. Use with caution.
 
 ## How to use it?
 
 Well, this repo is probably cloned to our server... it should be located at `/server/script' folder, but if you don´t find it in our server, please follow up our [Script Instalation Wiki](../wikis/Initial-Setup).
 
-## Roadmap
 
-## 1. Clone scripts
-
-_Clone scripts_ will allow you to duplicate ("clone") a running site (the whole environment) to a new domain, with all files cloned exact the same way you had in the _original_ site.
-
-[Link to documentation](./clone/README.md)
-
-## 2. Backup scripts
-
-The _backup scripts_ was designed to run a complete **backup**, **restore** and backup **cleanup**. Please check each feature in details in our [Wiki](../wikis/scripts/backup)
-
-[Link to documentation](./backup/README.md)
-
-## 3. Plugin WP script
-
-This script is meant to install plugins in a running Wordpress.
-
-[Link to documentation](./plugin-install-wp/README.md)
-
-
-
+#### References
 
 https://www.gnu.org/software/bash/manual/
