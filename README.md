@@ -31,6 +31,7 @@ Please check all the options available in the helper (`$ ./new-site.sh -h`) or a
  - [ ] Add ssh support for containers
  - [ ] Add ftp support for containers
  - [ ] Backup docker containers (files)
+ - [ ] Backup in external server
  - [ ] Cleanup backup files
  - [ ] Backup WordPress files and databases (volumes + dump)
  - [ ] Clone WordPress site
