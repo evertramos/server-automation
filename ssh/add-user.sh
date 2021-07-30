@@ -43,7 +43,7 @@ while [[ $# -gt 0 ]]
 do
     case "$1" in
 
-        # SSH container name
+        # ssh-manager container name
         -c)
         ARG_SSH_MANAGER="${2}"
         if [[ $ARG_SSH_MANAGER == "" ]]; then
@@ -55,7 +55,7 @@ do
         --ssh-manager=*)
         ARG_SSH_MANAGER="${1#*=}"
         if [[ $ARG_SSH_MANAGER == "" ]]; then
-            echoerror "Invalid option for --container";
+            echoerror "Invalid option for --ssh-manager";
             break;
         fi
         shift 1
@@ -117,7 +117,7 @@ do
         ;;
 
         # Instead user key you might inform a key file
-        -kf)
+        -f)
         ARG_KEY_FILE="${2%/}"
         if [[ $ARG_KEY_FILE == "" ]]; then
             echoerror "Invalid option for -f";
@@ -295,7 +295,7 @@ fi
 
 #-----------------------------------------------------------------------
 # User's key (-k|--key-string=|ARG_KEY_STRING|USER_SSH_KEY)
-#            (-kf|--key-file=|ARG_KEY_FILE|USER_SSH_KEY)
+#            (-f|--key-file=|ARG_KEY_FILE|USER_SSH_KEY)
 #
 # The user created will only have access the ssh-manager using a ssh-key,
 # so, you must get the user's public key or generate one for him before
@@ -317,13 +317,13 @@ elif [[ $ARG_KEY_STRING != "" ]] && [[ $ARG_KEY_FILE != "" ]]; then
 fi
 
 # Get the USER_SSH_KEY
-[[ $ARG_KEY_STRING != "" ]] && USER_SSH_KEY="$ARG_KEY_STRING"
+[[ $ARG_KEY_STRING != "" ]] && USER_SSH_KEY=$ARG_KEY_STRING
 [[ $ARG_KEY_FILE != "" ]] && USER_SSH_KEY=$(cat ${ARG_KEY_FILE})
 
 #-----------------------------------------------------------------------
 # Confirm action
 #-----------------------------------------------------------------------
-if [[ ! "$SILENT" == true  ]] || [[ ! "$REPLY_YES" == true ]]; then
+if [[ "$SILENT" != true ]] && [[ "$REPLY_YES" != true ]]; then
     run_function confirm_user_action "You are creating the user '$USER_NAME' in the container '$SSH_MANAGER'. \
       \nAre you sure you want to continue?" true
 fi
@@ -331,7 +331,7 @@ fi
 #-----------------------------------------------------------------------
 # Create the user in the ssh-manager container
 #-----------------------------------------------------------------------
-run_function add_user_with_keydocker_add_user_with_key $SSH_MANAGER $USER_NAME $USER_SSH_KEY
+run_function docker_add_user_with_key $SSH_MANAGER $USER_NAME "$USER_SSH_KEY"
 
 # Verify if user was created as expected
 run_function docker_check_user_exists_in_container $SSH_MANAGER $USER_NAME
@@ -344,10 +344,14 @@ fi
 # Grant access to the newly created user, unless if you set --add-user-only
 #-----------------------------------------------------------------------
 if [[ "$ADD_USER_ONLY" != true ]]; then
-    if [[ "$SILENT" == true ]]; then
-        $SCRIPT_PATH/grant-user-access.sh "--container=$SSH_MANAGER" "--user-name=$USER_NAME" "--sites-from-adduser-script=${ARG_SITES_CONTAINERS[*]}" "--silent"
+    if [[ "$SILENT" == true ]] && [[ "$REPLY_YES" == true ]]; then
+        $SCRIPT_PATH/grant-user-access.sh "--ssh-manager=$SSH_MANAGER" "--user-name=$USER_NAME" "--sites-from-adduser-script=${ARG_SITES_CONTAINERS[*]}" "--silent" "--yes"
+    elif [[ "$REPLY_YES" == true ]]; then
+        $SCRIPT_PATH/grant-user-access.sh "--ssh-manager=$SSH_MANAGER" "--user-name=$USER_NAME" "--sites-from-adduser-script=${ARG_SITES_CONTAINERS[*]}" "--yes"
+    elif [[ "$SILENT" == true ]]; then
+        $SCRIPT_PATH/grant-user-access.sh "--ssh-manager=$SSH_MANAGER" "--user-name=$USER_NAME" "--sites-from-adduser-script=${ARG_SITES_CONTAINERS[*]}" "--silent"
     else
-        $SCRIPT_PATH/grant-user-access.sh "--container=$SSH_MANAGER" "--user-name=$USER_NAME" "--sites-from-adduser-script=${ARG_SITES_CONTAINERS[*]}"
+        $SCRIPT_PATH/grant-user-access.sh "--ssh-manager=$SSH_MANAGER" "--user-name=$USER_NAME" "--sites-from-adduser-script=${ARG_SITES_CONTAINERS[*]}"
     fi
 fi 
 
