@@ -44,7 +44,7 @@ do
     case "$1" in
 
         # SSH container name
-        -s)
+        -c)
         ARG_SSH_MANAGER="${2}"
         if [[ $ARG_SSH_MANAGER == "" ]]; then
             echoerror "Invalid option for -c";
@@ -236,7 +236,7 @@ local_undo_restore()
 #-----------------------------------------------------------------------
 
 #-----------------------------------------------------------------------
-# ssh-manager conatiner name (-s|--ssh-manager=|ARG_SSH_MANAGER|SSH_MANAGER)
+# ssh-manager container name (-c|--ssh-manager=|ARG_SSH_MANAGER|SSH_MANAGER)
 #
 # This is the container which will hold all ssh connections, it should not
 # have the docker socket mounted into it, or you might face a greta risk
