@@ -252,10 +252,6 @@ system_save_pid $NEW_PID_FILE
 #-----------------------------------------------------------------------
 local_undo_restore()
 {
-    local LOCAL_KEEP_RESTORE_FILES
-
-    LOCAL_KEEP_RESTORE_FILES=${1:-$KEEP_RESTORE_FILES}
-    
     echoerror "It seems something went wrong running '$SCRIPT_NAME'.\nWe will try to UNDO all actions done by this script.\nPlease make sure everything was back in place as when you started." false
 
     # If any service was started make sure to stop it
