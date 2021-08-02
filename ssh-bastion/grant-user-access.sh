@@ -362,9 +362,3 @@ if [[ ! "$SILENT" == true  ]]; then
 fi
 
 exit 0
-
-
-# if user does not exist ask to create one
-
-
-# corrigir permissão da pasta .ssh para 700 e do arquivo .ssh/config para 644

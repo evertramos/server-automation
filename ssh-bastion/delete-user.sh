@@ -231,7 +231,7 @@ fi
 #-----------------------------------------------------------------------
 # Delete user in ssh-bastion container
 #-----------------------------------------------------------------------
-run_function docker_container_delete_user $USER_NAME
+run_function docker_delete_user $USER_NAME
 
 #-----------------------------------------------------------------------
 # Revoke access from all containers, unless if you set --remove-user-only
