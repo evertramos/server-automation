@@ -316,7 +316,7 @@ fi
 #-----------------------------------------------------------------------
 # Confirm action
 #-----------------------------------------------------------------------
-if [[ ! "$SILENT" == true  ]] || [[ ! "$REPLY_YES" == true ]]; then
+if [[ ! "$SILENT" == true  ]] && [[ ! "$REPLY_YES" == true ]]; then
     SITE_CONTAINER_STRING=${SITES_CONTAINERS[*]}
     run_function confirm_user_action "You are allowing the user '$USER_NAME' to access the container(s) '${SITE_CONTAINER_STRING// / - }'. \
       \nAre you sure you want to continue?" true
