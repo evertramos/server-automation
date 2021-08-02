@@ -239,7 +239,7 @@ local_undo_restore()
 # ssh-bastion container name (-c|--ssh-bastion=|ARG_SSH_BASTION|SSH_BASTION)
 #
 # This is the container which will hold all ssh connections, it should not
-# have the docker socket mounted into it, or you might face a greta risk
+# have the docker socket mounted into it, or you might face a great risk
 # of being hacked, once user might gain access to your host server ⚠
 #-----------------------------------------------------------------------
 SSH_BASTION="${ARG_SSH_BASTION:-ssh-bastion}"
@@ -258,8 +258,8 @@ fi
 run_function docker_check_container_is_running $SSH_BASTION
 
 if [[ "$DOCKER_CONTAINER_IS_RUNNING" != true ]]; then
-    echoerror "The container '$SSH_BASTION' exist in your envronment but it seems it's not running. But if you do \
-      \nhave it runnig please inform the correct container name by the option '--ssh-bastion=YOUR_CONTAINER_NAME'."
+    echoerror "The container '$SSH_BASTION' exist in your environment but it seems it's not running. But if you do \
+      \nhave it running please inform the correct container name by the option '--ssh-bastion=YOUR_CONTAINER_NAME'."
 fi
 
 #-----------------------------------------------------------------------
@@ -288,7 +288,7 @@ fi
 # Check if user already exists in the ssh-bastion
 run_function docker_check_user_exists_in_container $SSH_BASTION $USER_NAME
 if [[ "$DOCKER_USER_EXISTS_IN_CONTAINER" == true ]]; then
-    echoerror "The user '$USER_NAME' already exist in container the ssh-container: '$SSH_BASTION'.\
+    echoerror "The user '$USER_NAME' already exist in container '$SSH_BASTION'.\
       \nIf you want to grant access to this user to any other container in your environment, please run the following: \
       \n./grant-user-access.sh --user-name=$USER_NAME"
 fi
@@ -324,12 +324,12 @@ fi
 # Confirm action
 #-----------------------------------------------------------------------
 if [[ "$SILENT" != true ]] && [[ "$REPLY_YES" != true ]]; then
-    run_function confirm_user_action "You are creating the user '$USER_NAME' in the container '$SSH_BASTION'. \
+    run_function confirm_user_action "You are creating user '$USER_NAME' in container '$SSH_BASTION'. \
       \nAre you sure you want to continue?" true
 fi
 
 #-----------------------------------------------------------------------
-# Create the user in the ssh-bastion container
+# Create user in ssh-bastion container
 #-----------------------------------------------------------------------
 run_function docker_add_user_with_key $SSH_BASTION $USER_NAME "$USER_SSH_KEY"
 
