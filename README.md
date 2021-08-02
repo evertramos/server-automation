@@ -26,6 +26,10 @@ Please check all the options available in the helper (`$ ./new-site.sh -h`) or a
 
 [Link to WordPress scripts documentation](./wordpress/README.md)
 
+## TODO
+
+- não permitir usar '~' para a pasta home
+
 ## Roadmap 
  - [X] Start new WordPress site
  - [X] Add ssh support for containers (ssh-bastion)
