@@ -249,7 +249,7 @@ fi
 for SITE_CONTAINER in "${SITES_CONTAINERS[@]}"; do
 
     # Check if site is running
-    run_function check_single_container_running $SITE_CONTAINER
+    run_function docker_check_container_is_running $SITE_CONTAINER
 
     if [[ "$CONTAINER_RUNNING" == true ]]; then
         # Remove SSH Pub Key to Site Container for the specified user
