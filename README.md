@@ -28,7 +28,7 @@ Please check all the options available in the helper (`$ ./new-site.sh -h`) or a
 
 ## Roadmap 
  - [X] Start new WordPress site
- - [ ] Add ssh support for containers
+ - [X] Add ssh support for containers (ssh-bastion)
  - [ ] Add ftp support for containers
  - [ ] Backup docker containers (files)
  - [ ] Backup in external server
