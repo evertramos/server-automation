@@ -26,6 +26,14 @@ Please check all the options available in the helper (`$ ./new-site.sh -h`) or a
 
 [Link to WordPress scripts documentation](./wordpress/README.md)
 
+## TODO
+
+- não permitir usar '~' para a pasta home
+- create info instead of warning for some cases such as success
+- inserir success message at the end of wordpress new site
+- script to create .env in wordpress (skip-exit option)
+- script to create .env in server-automation (skip-exit option)
+
 ## Roadmap 
  - [X] Start new WordPress site
  - [X] Add ssh support for containers (ssh-bastion)
