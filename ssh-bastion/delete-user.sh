@@ -237,11 +237,15 @@ run_function docker_delete_user $SSH_BASTION $USER_NAME
 # Revoke access from all containers, unless if you set --remove-user-only
 #-----------------------------------------------------------------------
 if [[ "$REMOVE_USER_ONLY" != true ]]; then
-    if [[ "$SILENT" == true ]]; then
-        $SCRIPT_PATH/revoke-user-access.sh "--user-name=$USER_NAME" "--all-sites" "--silent"
+    if [[ "$SILENT" == true ]] && [[ "$REPLY_YES" == true ]]; then
+        $SCRIPT_PATH/revoke-user-access.sh "--user-name=$USER_NAME" "--all-containers"  "--silent" "--yes"
+    elif [[ "$REPLY_YES" == true ]]; then
+        $SCRIPT_PATH/revoke-user-access.sh "--user-name=$USER_NAME" "--all-containers"  "--yes"
+    elif [[ "$SILENT" == true ]]; then
+        $SCRIPT_PATH/revoke-user-access.sh "--user-name=$USER_NAME" "--all-containers"  "--silent"
     else
-        $SCRIPT_PATH/revoke-user-access.sh "--user-name=$USER_NAME" "--all-sites"
+        $SCRIPT_PATH/revoke-user-access.sh "--user-name=$USER_NAME" "--all-containers"
     fi
-fi 
+fi
 
 exit 0
