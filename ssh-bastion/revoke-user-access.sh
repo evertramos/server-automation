@@ -233,7 +233,7 @@ fi
 #-----------------------------------------------------------------------
 # Confirm action
 #-----------------------------------------------------------------------
-if [[ ! "$SILENT" == true  ]] || [[ ! "$REPLY_YES" == true ]]; then
+if [[ ! "$SILENT" == true  ]] && [[ ! "$REPLY_YES" == true ]]; then
     if [[ "$REVOKE_FROM_ALL_CONTAINERS" == true ]]; then
         run_function confirm_user_action "You are revoking '$USER_NAME' access from all containers. Are you sure you want to continue?" true
     else
