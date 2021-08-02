@@ -2,7 +2,7 @@
 
 #-----------------------------------------------------------------------
 #
-# Add user to the ssh-bastion container (docker-ssh-bastion)
+# Grant access to other containers for a specific user in the ssh-bastion container (docker-ssh-bastion)
 #
 # Repo: https://github.com/evertramos/docker-ssh-bastion
 #
@@ -110,24 +110,6 @@ do
         ARG_KEY_STRING="${1#*=}"
         if [[ $ARG_KEY_STRING == "" ]]; then
             echoerror "Invalid option for --key-string";
-            break;
-        fi
-        shift 1
-        ;;
-
-        # Sites container is an array, you might add it multiple times
-        -s)
-        ARG_SITES_CONTAINERS+=("${2}")
-        if [[ $ARG_SITES_CONTAINERS == "" ]]; then
-            echoerror "Invalid option for -s";
-            break;
-        fi
-        shift 2
-        ;;
-        --site-container=*)
-        ARG_SITES_CONTAINERS+=("${1#*=}")
-        if [[ $ARG_SITES_CONTAINERS == "" ]]; then
-            echoerror "Invalid option for --site-container";
             break;
         fi
         shift 1
@@ -301,12 +283,10 @@ fi
 #-----------------------------------------------------------------------
 # Sites containers' name (-s|--site-container=|ARG_SITES_CONTAINERS [ARRAY])
 #
-# This options is used to inform which containers the newly created user
-# will have access granted, so you might inform in this script and do
-# one time job. All validations are done in grant-user-access script
+# This options is used to inform which container the newly created user
+# will have access granted, please make sure to specify only services
+# the user owns, once the access in container may have root access
 #-----------------------------------------------------------------------
-
-# Check if sites containers' name were sent from '--sites-from-adduser-script' option
 if [[ $ARG_SITES_FROM_ADDUSER_SCRIPT == "" ]]; then
     
     # Check if Site Argument was passed
@@ -337,6 +317,7 @@ fi
 # Confirm action
 #-----------------------------------------------------------------------
 if [[ ! "$SILENT" == true  ]] || [[ ! "$REPLY_YES" == true ]]; then
+    SITE_CONTAINER_STRING=${SITES_CONTAINERS[*]}
     run_function confirm_user_action "You are allowing the user '$USER_NAME' to access the container(s) '${SITE_CONTAINER_STRING// / - }'. \
       \nAre you sure you want to continue?" true
 fi
