@@ -1,9 +1,22 @@
 # Server Automation 🔥
 
-Scripts to automate your work and give you more time for your family! 
-(That was my main purpose, reason why I believe it would be useful for some other folks)
+Scripts to automate your daily work in bash scripting! 🛩️
 
 > 🚧 This is a _work in progress_ project 
+
+## Video Tutorials
+
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ)
+
+## TL;DR 🦥
+
+Add _basescript_ to your scripts will give you a bunch of functions with nice results. Check our boilerplate script:
+
+whole and reuse functions designed to get the results you expect. Such as, replace string in a file, or replace only variable value in a file (ex. .env or .yml files). For a few more information you might want to check out YouTube Channel.
+
+
+
+## 
 
 ## Requirements (@todo)
 
@@ -37,6 +50,8 @@ Please check all the options available in the helper (`$ ./new-site.sh -h`) or a
 ## Roadmap 
  - [X] Start new WordPress site
  - [X] Add ssh support for containers (ssh-bastion)
+ - [ ] Install docker
+ - [ ] Prepare folder structure with correct permissions of the folder
  - [ ] Add ftp support for containers
  - [ ] Backup docker containers (files)
  - [ ] Backup in external server
@@ -50,7 +65,7 @@ Please check all the options available in the helper (`$ ./new-site.sh -h`) or a
  - [ ] Configure DNS (Amazon + Digital Ocean)
  - [ ] Configure .env for server-automation *automatically*
  - [ ] Start log system for server
- - [ ] 
+ - [ ] Test whole suite in Ubuntu, Debian and CentOS
  - [ ] 
  - [ ] 
 
