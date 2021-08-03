@@ -60,7 +60,14 @@ Please check all the options available in the helper (`$ ./new-site.sh -h`) or a
 
 Well, this repo is probably cloned to our server... it should be located at `/server/script' folder, but if you don´t find it in our server, please follow up our [Script Instalation Wiki](../wikis/Initial-Setup).
 
-
 #### References
 
 https://www.gnu.org/software/bash/manual/
+
+## Contribute
+
+[![image](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/evertramos)
+[![image](https://img.shields.io/badge/picpay-21C25E?style=for-the-badge&logo=picpay&logoColor=white)](https://picpay.me/evert.ramos)
+
+
+
