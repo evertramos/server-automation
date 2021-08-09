@@ -556,8 +556,18 @@ fi
 # Generate all variables for substitution in .env and docker-composer files
 #-----------------------------------------------------------------------
 
-# Base name for all service 
-LOCAL_SITE_NAME=${LOCAL_NEW_URL%%.*}
+# Get project name from the URL
+run_function domain_get_main_name_from_url $LOCAL_NEW_URL
+LOCAL_SITE_NAME="$DOMAIN_MAIN_NAME_FROM_URL"
+
+# Get first subdomain if not 'www'
+LOCAL_SITE_SUBDOMAIN="${LOCAL_NEW_URL%%.*}"
+
+if [[ "$LOCAL_SITE_SUBDOMAIN" != "www" ]] && [[ "$LOCAL_SITE_SUBDOMAIN" != "$LOCAL_SITE_NAME" ]]; then
+    LOCAL_PROJECT_NAME="${LOCAL_SITE_NAME}_${LOCAL_SITE_SUBDOMAIN}"
+else
+    LOCAL_PROJECT_NAME="${LOCAL_SITE_NAME}"
+fi
 
 # User Password
 # Get Random string for clone service name
@@ -567,7 +577,7 @@ if [[ "$RANDOM_STRING" == 0 ]] || [[ "$RANDOM_STRING" == "" ]]; then
 fi
 
 # Set the local env variables [@TODO - Update to argument variables if needed]
-LOCAL_COMPOSE_PROJECT_NAME="$LOCAL_SITE_NAME-$COMPOSE_UNIQUE_TAG"
+LOCAL_COMPOSE_PROJECT_NAME="$LOCAL_PROJECT_NAME-$COMPOSE_UNIQUE_TAG"
 LOCAL_CONTAINER_DB_NAME="$LOCAL_SITE_NAME-db-$COMPOSE_UNIQUE_TAG"
 LOCAL_MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-$RANDOM_STRING$COMPOSE_UNIQUE_TAG}
 LOCAL_MYSQL_DATABASE=$LOCAL_SITE_NAME
@@ -575,7 +585,9 @@ LOCAL_MYSQL_USER=$LOCAL_SITE_NAME"_user"
 LOCAL_MYSQL_PASSWORD=$RANDOM_STRING
 LOCAL_CONTAINER_SITE_NAME="$LOCAL_SITE_NAME-site-$COMPOSE_UNIQUE_TAG"
 LOCAL_LETSENCRYPT_EMAIL=${ARG_LETSENCRYPT_EMAIL:-$LETSENCRYPT_EMAIL}
- 
+
+# @todo - como verificar se setá rodando? ahh dpeois do composer pronto .....
+
 #-----------------------------------------------------------------------
 # Check if site and db container's name are already running
 #-----------------------------------------------------------------------
@@ -593,10 +605,10 @@ fi
 #-----------------------------------------------------------------------
 # Create/Update .env file
 #-----------------------------------------------------------------------
-run_function local_update_env_new_site_variables "${LOCAL_SITE_FULL_PATH%/}/compose"
+run_function local_update_env_variables "${LOCAL_SITE_FULL_PATH%/}/compose"
 
-if [[ $RESPONSE_LOCAL_UPDATE_ENV_NEW_SITE_VARIABLES != "" ]]; then
-    echo "$RESPONSE_LOCAL_UPDATE_ENV_NEW_SITE_VARIABLES"
+if [[ $RESPONSE_LOCAL_UPDATE_ENV_VARIABLES != "" ]]; then
+    echo "$RESPONSE_LOCAL_UPDATE_ENV_VARIABLES"
     local_undo_restore
 fi
 
