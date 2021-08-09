@@ -1,83 +1,56 @@
-# Server Automation 🔥
+# Server Automation 🚀
 
-Scripts to automate your daily work in bash scripting! 🛩️
+Scripts to automate your daily work in bash scripting!️
 
 > 🚧 This is a _work in progress_ project 
 
-## Video Tutorials
+## Video Tutorials (will be recorded soon!)
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ)
 
-## TL;DR 🦥
+## How to start 🔰
+[![shell script](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/evertramos)
 
-Add _basescript_ to your scripts will give you a bunch of functions with nice results. Check our boilerplate script:
+1. Make sure NGINX Proxy is running
 
-whole and reuse functions designed to get the results you expect. Such as, replace string in a file, or replace only variable value in a file (ex. .env or .yml files). For a few more information you might want to check out YouTube Channel.
+Please check [NGINX Proxy Automation](https://github.com/evertramos/nginx-proxy-automation) for more details.
 
+> You will need the proxy running to run some scripts in this project
 
+2. Clone this repository using the option **_--recurse-submodules_** ⚠
 
-## 
+```bash
+git clone --recurse-submodules https://github.com/evertramos/server-automation server-automation 
+```
 
-## Requirements (@todo)
+We use [**basescript**](https://github.com/evertramos/basescript) 🛰
 
-- bash
-- sudo
-- sed
-- awk
+3. Create .env file
 
-## Main Functions
+```bash
+cd server-automation && cp .env.example .env
+```
 
-### WordPress scripts
+> Make sure your file path where you cloned this project (item 2) and proxy (item 1) are correct. 
 
-1. New site (./wordpress/new-site.sh)
+4. Start new site!
 
-This script will start a new WordPress site using this repo:
+Go to wordpress folder, create .env file and run new site script!
 
-https://github.com/evertramos/docker-wordpress
+```bash
+cd wordpress && cp .env.example .env && ./new-site.sh --new-url PUT_HERE_YOUR_DOMAIN.com --disable-letsencrypt --skip-docker-image-check
+```
 
-Please check all the options available in the helper (`$ ./new-site.sh -h`) or access:
+> In this item we will use [Docker WordPress](https://github.com/evertramos/docker-wordpress) version number 'v0.6' for now.
 
-[Link to WordPress scripts documentation](./wordpress/README.md)
+> If you want to have **Lets Encrypt** running, please inform the correct email address in _./server-automation/wordpress/.env_ file
+> and remove _--disable-letsencrypt_ option from the line above. 
 
-## TODO
+## **Done!** 🏁
 
-- não permitir usar '~' para a pasta home
-- create info instead of warning for some cases such as success
-- inserir success message at the end of wordpress new site
-- script to create .env in wordpress (skip-exit option)
-- script to create .env in server-automation (skip-exit option)
+Check the domain in the browser and install your new WordPress site! 
 
-## Roadmap 
- - [X] Start new WordPress site
- - [X] Add ssh support for containers (ssh-bastion)
- - [ ] Install docker
- - [ ] Prepare folder structure with correct permissions of the folder
- - [ ] Add ftp support for containers
- - [ ] Backup docker containers (files)
- - [ ] Backup in external server
- - [ ] Cleanup backup files
- - [ ] Backup WordPress files and databases (volumes + dump)
- - [ ] Clone WordPress site
- - [ ] Restore WordPress site from Clone (copy) 
- - [ ] Restore WordPress site from Backup
- - [ ] Update WordPress version in running container  
- - [ ] Install WordPress plugins in running container
- - [ ] Configure DNS (Amazon + Digital Ocean)
- - [ ] Configure .env for server-automation *automatically*
- - [ ] Start log system for server
- - [ ] Test whole suite in Ubuntu, Debian and CentOS
- - [ ] 
- - [ ] 
-
-
-
-## How to use it?
-
-Well, this repo is probably cloned to our server... it should be located at `/server/script' folder, but if you don´t find it in our server, please follow up our [Script Instalation Wiki](../wikis/Initial-Setup).
-
-#### References
-
-https://www.gnu.org/software/bash/manual/
+> Your domain url, used in the option _--new-url_ above, must have the DNS correctly pointing to your server.
 
 ## Contribute
 
