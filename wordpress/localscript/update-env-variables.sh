@@ -62,13 +62,13 @@ local_update_env_variables()
     run_function env_update_variable $LOCAL_FULL_PATH "DOCKER_WORDPRESS_MYSQL_DATABASE" "$LOCAL_MYSQL_DATABASE"
     run_function env_update_variable $LOCAL_FULL_PATH "DOCKER_WORDPRESS_MYSQL_USER" "$LOCAL_MYSQL_USER"
     run_function env_update_variable $LOCAL_FULL_PATH "DOCKER_WORDPRESS_MYSQL_PASSWORD" "$LOCAL_MYSQL_PASSWORD"
-#    run_function env_update_variable $LOCAL_FULL_PATH "CONTAINER_DB_NAME" "$LOCAL_CONTAINER_DB_NAME"
+    run_function env_update_variable $LOCAL_FULL_PATH "DOCKER_WORDPRESS_DB_CONTAINER_NAME" "$LOCAL_CONTAINER_DB_NAME"
 
     # WordPress options
     run_function env_update_variable $LOCAL_FULL_PATH "DOCKER_WORDPRESS_SITE_IMAGE" "$LOCAL_SITE_IMAGE"
     run_function env_update_variable $LOCAL_FULL_PATH "DOCKER_WORDPRESS_SITE_VERSION" "$LOCAL_SITE_VERSION"
     run_function env_update_variable $LOCAL_FULL_PATH "DOCKER_WORDPRESS_SITE_FILES" "./../data/site"
-#    run_function env_update_variable $LOCAL_FULL_PATH "CONTAINER_SITE_NAME" "$LOCAL_CONTAINER_SITE_NAME"
+    run_function env_update_variable $LOCAL_FULL_PATH "DOCKER_WORDPRESS_SITE_CONTAINER_NAME" "$LOCAL_CONTAINER_SITE_NAME"
 #    run_function env_update_variable $LOCAL_FULL_PATH "WORDPRESS_TABLE_PREFIX" ""
 
     return 0

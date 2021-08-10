@@ -149,7 +149,7 @@ do
         # ;;
         # --letsencrypt-email=*)
         # ARG_LETSENCRYPT_EMAIL="${1#*=}"
-        # if [[ $ARG_LETSENCRYPT_EMAIL == "" ]]; then 
+        # if [[ $ARG_LETSENCRYPT_EMAIL == "" ]]; then
         #     echoerror "Invalid option for --letsencrypt-email";
         #     break;
         # fi
