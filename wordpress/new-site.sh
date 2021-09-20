@@ -58,7 +58,7 @@ do
         fi
         shift 1
         ;;
-        -nu)
+        -u)
         ARG_NEW_URL="${2}"
         if [[ $ARG_NEW_URL == "" ]]; then 
             echoerror "Invalid option for -u";
@@ -353,7 +353,7 @@ else
 fi
 
 #-----------------------------------------------------------------------
-# Site URL (--nu|--new-url=|ARG_NEW_URL|NEW_URL)
+# Site URL (-u|--new-url=|ARG_NEW_URL|NEW_URL)
 #-----------------------------------------------------------------------
 if [[ $ARG_NEW_URL == "" ]]; then
     # Ask for the new URL 
