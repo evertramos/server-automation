@@ -184,6 +184,10 @@ do
         SKIP_DOCKER_IMAGE_CHECK=true
         shift 1
         ;;
+        --skip-output-colors)
+        BASESCRIPT_SKIP_COLOR=true
+        shift 1
+        ;;
         --verify-dns)
         VERIFY_DNS=true
         shift 1
