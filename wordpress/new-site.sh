@@ -382,7 +382,7 @@ fi
 #-----------------------------------------------------------------------
 # Check site URL folder at destination
 #-----------------------------------------------------------------------
-LOCAL_SITE_FULL_PATH=${DESTINATION_FOLDER%/}"/"$LOCAL_NEW_URL
+LOCAL_SITE_FULL_PATH=${DESTINATION_FOLDER%/}"/"$(echo ${LOCAL_NEW_URL} | cut -f1 -d",")
 
 # Check if folder exists
 run_function check_folder_exists $LOCAL_SITE_FULL_PATH
