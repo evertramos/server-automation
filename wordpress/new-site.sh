@@ -66,6 +66,14 @@ do
         fi
         shift 2
         ;;
+        -nu)
+        ARG_NEW_URL="${2}"
+        if [[ $ARG_NEW_URL == "" ]]; then
+            echoerror "Invalid option for -nu";
+            break;
+        fi
+        shift 2
+        ;;
         --new-url=*)
         ARG_NEW_URL="${1#*=}"
         if [[ $ARG_NEW_URL == "" ]]; then 
