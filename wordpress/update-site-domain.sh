@@ -192,11 +192,8 @@ done
 # Initial check - DO NOT CHANGE SETTINGS BELOW
 #-----------------------------------------------------------------------
 
-# Check if there is an .env file in local folder
-run_function check_local_env_file
-
 # Specific PID File if needs to run multiple scripts
-LOCAL_NEW_PID_FILE=${PID_FILE_NEW_SITE:-".update_site_domain.pid"}
+LOCAL_NEW_PID_FILE=${LOCAL_SCRIPT_PID_FILE_NAME:-".update_site_domain.pid"}
 if [[ $ARG_PID_TAG == "" ]]; then
   NEW_PID_FILE=${LOCAL_NEW_PID_FILE}
 else
