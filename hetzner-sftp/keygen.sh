@@ -99,22 +99,24 @@ do
 
         # backup server password
         # NOT SAFE - @TODO [think possible alternatives sshpass -p <password> sftp user@host]
-#        -sp)
+        -sp)
+          echoerror "We did not implemented the password yet, for security reasons."
 #        ARG_SERVER_PASSWORD="${2}"
 #        if [[ $ARG_SERVER_PASSWORD == "" ]]; then
 #            echoerror "Invalid option for -sp";
 #            break;
 #        fi
 #        shift 2
-#        ;;
-#        --server-password=*)
+        ;;
+        --server-password=*)
+          echoerror "We did not implemented the password yet, for security reasons."
 #        ARG_SERVER_PASSWORD="${1#*=}"
 #        if [[ $ARG_SERVER_PASSWORD == "" ]]; then
 #            echoerror "Invalid option for --server-password=''";
 #            break;
 #        fi
 #        shift 1
-#        ;;
+        ;;
 
         --yes)
         REPLY_YES=true
@@ -132,7 +134,7 @@ do
         usage_keygen
         ;;
         *)
-        echoerror "Unknown argument: $1"
+        echoerror "Unknown argument: $1" false
         usage_keygen
         ;;
     esac
