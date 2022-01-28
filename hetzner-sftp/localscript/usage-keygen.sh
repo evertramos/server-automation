@@ -23,31 +23,26 @@ usage_keygen()
     cat << USAGE >&2
 ${blue}
 Usage:
-    $SCRIPT_NAME -f ssh_file_name your_new_url.com [-u your_site_url]
-                 [-s source_folder] [-d destination_folder]
-                 [--no-start] [--wp-debug] [--debug] [--silent]
+    $SCRIPT_NAME -s server_connection_string [-sp server_password]
+                 [-k ssh_key_file_name] [-kp key_passphrase]
+                 [--yes] [--debug] [--silent]
 
-    Or use long options:
-    $SCRIPT_NAME --new-url=your_new_url.com [--url=your_site_url] 
-                 [--source=source_folder] [--destination=destination_folder]
-                 [--no-start] [--wp-debug] [--debug] [--silent]
-
-    Recommended
-    -nu | --new-url         The new URL for the clone site
+    Required
+    -s  | --server          The backup server connection string as of '<user>@<server>'
 
     Alternatively you may inform the options below
-    -u | --url              The new url for the cloning site
-    -s | --source           Folder where the docker-compose.yml for the running site is located
-    -d | --destination      Folder where the clone site will be located
-    -h | --help             Display this help
-    --no-start              Clone the site but does not start the docker-compose services
-                            [WARNING!] Careful when cloning sites with the same URL.
-                            It is recommended you ALWAYS USE the --new-url option.
+    -k  | --key-name        The key name that will be created
+    -kp | --passphrase      The key passphrase
+    -sp | --server-password The backup server password
+                            [WARNING!] Be careful when using this option once this
+                            information could be visible in logs, bash history, or
+                            even process inspection.
 
     There is some debug options you may use in order to hide or show more details
-    --wp-debug              Turn WP_DEBUG option to true on wp-config file
+    --yes                   Set "yes" to all, use it with caution
     --debug                 Show script debug options
     --silent                Hide all script message
+    -h | --help             Display this help
 
 ${reset}
 USAGE

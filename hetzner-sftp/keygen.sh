@@ -62,7 +62,7 @@ do
         ;;
 
         # ssh key passphrase
-        -p)
+        -kp)
         ARG_PASSPHRASE="${2}"
         if [[ $ARG_PASSPHRASE == "" ]]; then
             echoerror "Invalid option for -P";
@@ -96,6 +96,25 @@ do
         fi
         shift 1
         ;;
+
+        # backup server password
+        # NOT SAFE - @TODO [think possible alternatives sshpass -p <password> sftp user@host]
+#        -sp)
+#        ARG_SERVER_PASSWORD="${2}"
+#        if [[ $ARG_SERVER_PASSWORD == "" ]]; then
+#            echoerror "Invalid option for -sp";
+#            break;
+#        fi
+#        shift 2
+#        ;;
+#        --server-password=*)
+#        ARG_SERVER_PASSWORD="${1#*=}"
+#        if [[ $ARG_SERVER_PASSWORD == "" ]]; then
+#            echoerror "Invalid option for --server-password=''";
+#            break;
+#        fi
+#        shift 1
+#        ;;
 
         --yes)
         REPLY_YES=true
