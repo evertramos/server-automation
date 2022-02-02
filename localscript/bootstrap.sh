@@ -29,7 +29,7 @@ BOOTSTRAP_FILE_NAME="bootstrap.sh"
 #-----------------------------------------------------------------------
 # Debug message
 #-----------------------------------------------------------------------
-[[ "$DEBUG" == true ]] && "Reading base script files... [bootstrap.sh]"
+[[ "$DEBUG" == true ]] && echo "Reading base script files... [bootstrap.sh]"
 
 #-----------------------------------------------------------------------
 # Read files with extension '.sh'

@@ -2,18 +2,20 @@
 
 #-----------------------------------------------------------------------
 #
-# Backup script 
+# WordPress script - update domain
 #
-# Server Automation - https://github.com/evertramos/server-automation 
+# Server Automation - https://github.com/evertramos/server-automation
 #
 # Developed by
 #   Evert Ramos <evert.ramos@gmail.com>
 #
-# Copyright Evert Ramos 
+# Copyright Evert Ramos
 #
 #-----------------------------------------------------------------------
 
 # Bash settings (do not mess with it)
+# =) unless you have read the following with good care! =)
+# https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 shopt -s nullglob globstar
 
 # Get the script name and its file real path
@@ -23,11 +25,15 @@ SCRIPT_NAME="${0##*/}"
 # Source basescript functions
 source $SCRIPT_PATH"/../basescript/bootstrap.sh"
 
+# Source server-automation functions
+source $SCRIPT_PATH"/../localscript/bootstrap.sh"
+
 # Source localscripts
 source $SCRIPT_PATH"/localscript/bootstrap.sh"
 
 # Log
-log "Start execution"
+printf "${energy} Start execution '${SCRIPT_PATH}/${SCRIPT_NAME} "
+echo "$@':"
 log "$@"
 
 #-----------------------------------------------------------------------
@@ -149,7 +155,12 @@ done
 #-----------------------------------------------------------------------
 
 # Specific PID File if needs to run multiple scripts
-#NEW_PID_FILE=".new_script_file"
+LOCAL_NEW_PID_FILE=${LOCAL_SCRIPT_PID_FILE_NAME:-".new_script_file.pid"}
+if [[ $ARG_PID_TAG == "" ]]; then
+  NEW_PID_FILE=${LOCAL_NEW_PID_FILE}
+else
+  NEW_PID_FILE=".${ARG_PID_TAG}-${LOCAL_NEW_PID_FILE:1}"
+fi
 
 # Run initial check function
 run_function starts_initial_check $NEW_PID_FILE
