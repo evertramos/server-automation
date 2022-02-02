@@ -129,6 +129,24 @@ do
         shift 1
         ;;
 
+        # Extra URL for the site
+        -eu)
+        ARG_EXTRA_URL="${2}"
+        if [[ $ARG_EXTRA_URL == "" ]]; then
+            echoerror "Invalid option for -eu";
+            break;
+        fi
+        shift 2
+        ;;
+        --extra-url=*)
+        ARG_EXTRA_URL="${1#*=}"
+        if [[ $ARG_EXTRA_URL == "" ]]; then
+            echoerror "Invalid option for --extra-url";
+            break;
+        fi
+        shift 1
+        ;;
+
         # @todo - add backup option before run this function - option might be used to send it to 'cold storage'
 #        --backup)
 #        BACKUP_BEFORE_DELETE=true
@@ -393,9 +411,15 @@ fi
 
 #-----------------------------------------------------------------------
 # Update .env file with new domain
+# and check the extra url argument
+# Extra URL (-eu|-extra-url=|ARG_EXTRA_URL|EXTRA_URL)
 #-----------------------------------------------------------------------
-if [[ "$WITH_WWW" == true ]]; then
+if [[ "$WITH_WWW" == true ]] && [[ ! $ARG_EXTRA_URL == '' ]]; then
+    run_function env_update_variable "${LOCAL_URL_TO_FULL_PATH%/}/compose" "DOCKER_WORDPRESS_DOMAINS" "$LOCAL_URL_TO,www.$LOCAL_URL_TO,$ARG_EXTRA_URL" ".env" false true
+elif [[ "$WITH_WWW" == true ]] && [[ $ARG_EXTRA_URL == '' ]]; then
     run_function env_update_variable "${LOCAL_URL_TO_FULL_PATH%/}/compose" "DOCKER_WORDPRESS_DOMAINS" "$LOCAL_URL_TO,www.$LOCAL_URL_TO" ".env" false true
+elif [[ ! "$WITH_WWW" == true ]] && [[ ! $ARG_EXTRA_URL == '' ]]; then
+    run_function env_update_variable "${LOCAL_URL_TO_FULL_PATH%/}/compose" "DOCKER_WORDPRESS_DOMAINS" "$LOCAL_URL_TO,$ARG_EXTRA_URL" ".env" false true
 else
     run_function env_update_variable "${LOCAL_URL_TO_FULL_PATH%/}/compose" "DOCKER_WORDPRESS_DOMAINS" "$LOCAL_URL_TO" ".env" false true
 fi
