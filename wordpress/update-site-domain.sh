@@ -346,7 +346,7 @@ else
 fi
 
 # Clean up url
-run_function domain_get_domain_from_url $URL_TO
+run_function domain_get_domain_from_url $URL_TO false
 LOCAL_URL_TO=$DOMAIN_URL_RESPONSE
 
 # Create full file path for destination folder
