@@ -283,7 +283,7 @@ if [[ "$DOCKERHUB_IMAGE_EXISTS" != true ]]; then
 fi
 
 run_function dockerhub_list_tags $LOCAL_SITE_IMAGE
-run_function select_one_option "${DOCKERHUB_LIST_TAGS[*]}"
+run_function select_one_option_from_array "${DOCKERHUB_LIST_TAGS[*]}"
 echo "SELECT_ONE_OPTION_NAME: $SELECT_ONE_OPTION_NAME"
 
 exit 0

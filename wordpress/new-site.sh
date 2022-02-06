@@ -434,7 +434,7 @@ else
             LOCAL_SITE_VERSION="latest"
         else
             run_function dockerhub_list_tags $LOCAL_SITE_IMAGE
-            run_function select_one_option "${DOCKERHUB_LIST_TAGS[*]}" "Please select a tag for the image '$LOCAL_SITE_IMAGE' (the list below comes from https://hub.docker.com):"
+            run_function select_one_option_from_array "${DOCKERHUB_LIST_TAGS[*]}" "Please select a tag for the image '$LOCAL_SITE_IMAGE' (the list below comes from https://hub.docker.com):"
             
             [[ $SELECT_ONE_OPTION_NAME == "" ]] && echowarning "Once you did not select any option, 'latest' will be used."
             LOCAL_SITE_VERSION=${SELECT_ONE_OPTION_NAME:-"latest"}
@@ -470,7 +470,7 @@ else
             LOCAL_DB_VERSION="latest"
         else
             run_function dockerhub_list_tags $LOCAL_DB_IMAGE
-            run_function select_one_option "${DOCKERHUB_LIST_TAGS[*]}" "Please select a tag for the image '$LOCAL_DB_IMAGE' (the list below comes from https://hub.docker.com):"
+            run_function select_one_option_from_array "${DOCKERHUB_LIST_TAGS[*]}" "Please select a tag for the image '$LOCAL_DB_IMAGE' (the list below comes from https://hub.docker.com):"
             
             [[ $SELECT_ONE_OPTION_NAME == "" ]] && echowarning "Once you did not select any option, 'latest' will be used."
             LOCAL_DB_VERSION=${SELECT_ONE_OPTION_NAME:-"latest"}
