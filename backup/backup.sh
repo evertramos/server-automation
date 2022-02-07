@@ -99,9 +99,17 @@ do
         ;;
 
         # A flag for the backup file
+        -bi)
+        ARG_BACKUP_ID="${2}"
+        if [[ $ARG_BACKUP_ID == "" ]]; then
+            echoerror "Invalid option for -bi";
+            break;
+        fi
+        shift 2
+        ;;
         --backup-id=*)
         ARG_BACKUP_ID="${1#*=}"
-        if [[ $ARG_BACKUP_ID == "" ]]; then 
+        if [[ $ARG_BACKUP_ID == "" ]]; then
             echoerror "Invalid option for --backup-id=''";
             break;
         fi
@@ -304,7 +312,7 @@ fi
 function local_backup()
 {
     # Backup folder
-    run_function backup_compress_folder "${FULL_SOURCE_FOLDER}" "${DESTINATION_FOLDER}"
+    run_function backup_compress_folder "${FULL_SOURCE_FOLDER}" "${DESTINATION_FOLDER}" "${ARG_BACKUP_ID}"
 
     # Check if there were some errors in backup file or verify newly created backup file
     if [[ "$BACKUP_COMPRESS_FOLDER_ERROR" == true ]]; then
