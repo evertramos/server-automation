@@ -4,9 +4,19 @@ Scripts to automate your daily work in bash scripting!️
 
 > 🚧 This is a _work in progress_ project 
 
-## Video Tutorials (will be recorded soon!)
+## Video Tutorials
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ)
+
+[![youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ)
+
+### Instalation using [easy-server](https://github.com/evertramos/easy-server)
+<p align="center">
+   <a target="_blank" href="https://www.youtube.com/watch?v=lABtNXuHYdc"><img src="https://img.youtube.com/vi/lABtNXuHYdc/0.jpg" /></a>
+</p>
+
+https://youtu.be/lABtNXuHYdc
+
+> We will update the youtube channel with more videos
 
 ## How to start 🔰
 [![shell script](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://github.com/evertramos)
