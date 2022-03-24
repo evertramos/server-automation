@@ -572,7 +572,9 @@ fi
 #run_function domain_get_main_name_from_url $LOCAL_NEW_URL
 #LOCAL_SITE_NAME="$DOMAIN_MAIN_NAME_FROM_URL"
 LOCAL_SITE_NAME="${LOCAL_NEW_URL%.*}"
-# @TODO - check fix above to get the project name
+# @TODO - check fix above to get the project name if there is subdomains this will break
+# update https://github.com/evertramos/basescript/blob/e6c9e98286d3b40ab5de11278d2fd4fca1b35ea7/domain/domain-get-main-name-from-url.sh
+# even with top level domain with two letter this should work - fix that!
 
 
 # Get first subdomain if not 'www'
