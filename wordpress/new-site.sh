@@ -569,8 +569,11 @@ fi
 #-----------------------------------------------------------------------
 
 # Get project name from the URL
-run_function domain_get_main_name_from_url $LOCAL_NEW_URL
-LOCAL_SITE_NAME="$DOMAIN_MAIN_NAME_FROM_URL"
+#run_function domain_get_main_name_from_url $LOCAL_NEW_URL
+#LOCAL_SITE_NAME="$DOMAIN_MAIN_NAME_FROM_URL"
+LOCAL_SITE_NAME="${LOCAL_NEW_URL%.*}"
+# @TODO - check fix above to get the project name
+
 
 # Get first subdomain if not 'www'
 LOCAL_SITE_SUBDOMAIN="${LOCAL_NEW_URL%%.*}"
