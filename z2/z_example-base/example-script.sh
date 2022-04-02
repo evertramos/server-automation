@@ -31,7 +31,7 @@ source $SCRIPT_PATH"/localscript/bootstrap.sh"
 
 # Log
 log "Start execution"
-log "$@"
+log "'$*'"
 
 #-----------------------------------------------------------------------
 # Process arguments
