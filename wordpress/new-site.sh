@@ -580,7 +580,7 @@ LOCAL_SITE_NAME="${LOCAL_NEW_URL%.*}"
 # Get first subdomain if not 'www'
 LOCAL_SITE_SUBDOMAIN="${LOCAL_NEW_URL%%.*}"
 
-if [[ "$LOCAL_SITE_SUBDOMAIN" != "www" ]] && [[ "$LOCAL_SITE_SUBDOMAIN" != "$LOCAL_SITE_NAME" ]]; then
+if [[ "$LOCAL_SITE_SUBDOMAIN" != "www" ]] && [[ "$LOCAL_SITE_SUBDOMAIN" != "${LOCAL_SITE_NAME%%.*}" ]]; then
     LOCAL_PROJECT_NAME="${LOCAL_SITE_NAME}_${LOCAL_SITE_SUBDOMAIN}"
 else
     LOCAL_PROJECT_NAME="${LOCAL_SITE_NAME}"
@@ -603,7 +603,7 @@ LOCAL_MYSQL_PASSWORD=$RANDOM_STRING
 LOCAL_CONTAINER_SITE_NAME="$LOCAL_PROJECT_NAME-site-$COMPOSE_UNIQUE_TAG"
 LOCAL_LETSENCRYPT_EMAIL=${ARG_LETSENCRYPT_EMAIL:-$LETSENCRYPT_EMAIL}
 
-# @todo - como verificar se setá rodando? ahh dpeois do composer pronto .....
+# @todo - como verificar se setá rodando? ahh depois do composer pronto .....
 
 #-----------------------------------------------------------------------
 # Check if site and db container's name are already running
