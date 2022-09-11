@@ -8,5 +8,5 @@
 # *  *  *  *  * user-name command to be executed
 
 # Server automation backup
-30 5 5 * * evert cd /home/evert/server/server-automation/backup && ./backup.sh --all-sites --delete-local --send-storage --backup-id=$(date "+\%Y\%m")
+30 5 5 * * ubuntu cd /home/ubuntu/server/server-automation/backup && ./backup.sh --all-sites --delete-local --send-storage --backup-id=$(date "+\%Y\%m")
 

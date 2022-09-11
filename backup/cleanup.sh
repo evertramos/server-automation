@@ -2,40 +2,42 @@
 
 # ----------------------------------------------------------------------
 #
-# Script to cleanup backup
+# Cleanup script
 #
-# ----------------------------------------------------------------------
+# Server Automation - https://github.com/evertramos/server-automation
 #
 # Developed by
 #   Evert Ramos <evert.ramos@gmail.com>
 #
-# Copyright Evert Ramos 
+# Copyright Evert Ramos
 #
 # ----------------------------------------------------------------------
 
-# Bash setttings do not mess up
+# Bash settings (do not mess with it)
+# =) unless you have read the following with good care! =)
+# https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 shopt -s nullglob globstar
 
-# Debug true will show all debug messages
-#DEBUG=true
-
-# Silent true will hide all information
-#SILENT=true
-
-# Get the sript name and its file real path
+# Get the script name and its file real path
 SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
 SCRIPT_NAME="${0##*/}"
 
-# Read basescript
+# Source basescript functions
 source $SCRIPT_PATH"/../basescript/bootstrap.sh"
 
-# Read localscript
+# Source server-automation functions
+source $SCRIPT_PATH"/../localscript/bootstrap.sh"
+
+# Source localscripts
 source $SCRIPT_PATH"/localscript/bootstrap.sh"
 
+# Log
+printf "${energy} Start execution '${SCRIPT_PATH}/${SCRIPT_NAME} "
+echo "$@':"
+log "'$*'"
+
 # ----------------------------------------------------------------------
-#
 # Process arguments
-#
 # ----------------------------------------------------------------------
 while [[ $# -gt 0 ]]
 do
@@ -147,29 +149,37 @@ do
 done
 
 # ----------------------------------------------------------------------
-#
 # Initial check - DO NOT CHANGE SETTINGS BELOW
-#
 # ----------------------------------------------------------------------
 
+# Check if there is an .env file in local folder
+#run_function check_local_env_file
+
 # Specific PID File if needs to run multiple scripts
-#NEW_PID_FILE=".new_script_file"
+LOCAL_NEW_PID_FILE=${LOCAL_SCRIPT_PID_FILE_NAME:-".backup.pid"}
+if [[ $ARG_PID_TAG == "" ]]; then
+  NEW_PID_FILE=${LOCAL_NEW_PID_FILE}
+else
+  NEW_PID_FILE=".${ARG_PID_TAG}-${LOCAL_NEW_PID_FILE:1}"
+fi
 
 # Run initial check function
-run_function initial_check $NEW_PID_FILE
-
-# Check if there is an .env file in local folder
-run_function check_local_env_file
+run_function starts_initial_check $NEW_PID_FILE
 
 # Save PID
-save_pid $NEW_PID_FILE
+system_save_pid $NEW_PID_FILE
 
 # DO NOT CHANGE ANY OPTIONS ABOVE THIS LINE!
 
+#-----------------------------------------------------------------------
+# Check if the .env file was already configured for Server-Automation
+#-----------------------------------------------------------------------
+# @todo - update this function to server-automation .env file if not present it must be configured before running this script
+# [?] this is done by the env function - check if needed
+run_function check_server_automation_env_file_exists
+
 # ----------------------------------------------------------------------
-#
 # Arguments validation and variables fulfillment
-#
 # ----------------------------------------------------------------------
 # Check if Source Folder or SITES_FOLDER from base .env file is set 
 if [[ $ARG_SOURCE_FOLDER == "" ]] && [[ $SITES_FOLDER == "" ]]; then 
@@ -261,9 +271,7 @@ if [[ "$STORAGE_ONLY" != true ]] && [[ "$CLEAN_STORAGE" != true ]] && [[ "$LOCAL
 fi
 
 # ----------------------------------------------------------------------
-#
 # Start running script
-#
 # ----------------------------------------------------------------------
 
 # Funcion to be called by the next lines
