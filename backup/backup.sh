@@ -371,5 +371,7 @@ else
     local_backup
 fi
 
+echoinfo "Backup successfuly saved at: ${DESTINATION_FOLDER}"
+
 exit 0
 
