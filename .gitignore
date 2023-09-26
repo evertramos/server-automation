@@ -1,3 +1,5 @@
 .env
 .idea
 data
+basescript.log
+/*/basescript.log
