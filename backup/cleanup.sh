@@ -206,7 +206,7 @@ else
     fi
 fi
 
-    # Make backup or get --backup-id if it is informed
+# Make backup or get --backup-id if it is informed
 if [[ "$ARG_BACKUP_ID" == "" ]]; then
     ARG_BACKUP_ID=$(date "+%Y%m%d_%H%M%S")
     
