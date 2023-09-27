@@ -277,23 +277,27 @@ fi
 # Funcion to be called by the next lines
 function local_backup_cleanup()
 {
+    local LOCAL_REMOTE_FILE_NAME
+
+    LOCAL_REMOTE_FILE_NAME=${1:-null}
+
     if [[ "$STORAGE_ONLY" == true ]] || [[ "$CLEAN_STORAGE" == true ]]; then
         # Delete backup storage file
-        echowarning "Deleting backup file in Storage ($BACKUP_SERVER)"
+        echowarning "Deleting backup file: ${LOCAL_REMOTE_FILE_NAME} in Storage: $BACKUP_SERVER"
                
         # Delete file in the backup storage
-        run_function ftp_delete_file_ftp $BACKUP_FULLFILE_PATH $BACKUP_SERVER 
+        run_function ftp_delete_file_ftp $LOCAL_REMOTE_FILE_NAME $BACKUP_SERVER 
     fi
      
     if [[ "$STORAGE_ONLY" != true ]]; then
         # Delete local backup file
-        run_function delete_local_file $BACKUP_FULLFILE_PATH 
+        run_function file_delete_local_file $BACKUP_FULLFILE_PATH 
     fi
 
 
     # Listing files in the Backup Storage
     if [[ "$SILENT" != true ]] && [[ "$DEBUG" == true ]] &&[[ "$STORAGE_ONLY" == true ]] || [[ "$CLEAN_STORAGE" == true ]]; then
-        run_function ftp_list_folder_ftp $DESTINATION_FOLDER $BACKUP_SERVER
+        run_function ftp_list_folder_ftp "/" $BACKUP_SERVER
     fi
 
     return
@@ -303,7 +307,9 @@ function local_backup_cleanup()
 if [[ "$ALL_SITES" == true ]]; then
 
     # Loop all sites folder and clean it
-    return_all_folders 
+    cd ${SOURCE_FOLDER%/}
+    RETURN_ALL_FOLDERS=($(ls -d */ | sed 's#/##'))
+    cd - > /dev/null 2>&1
     for i in ${!RETURN_ALL_FOLDERS[@]}; do
         [[ "$SILENT" != true ]] && echo "Deleting backup for site '${RETURN_ALL_FOLDERS[i]}'"
 
@@ -311,13 +317,13 @@ if [[ "$ALL_SITES" == true ]]; then
         FULL_DESTINATION_FOLDER=${DESTINATION_FOLDER%/}"/"$LOCAL_URL
         BACKUP_FULLFILE_PATH=$FULL_DESTINATION_FOLDER"-"$BACKUP_ID".tar.gz"
 
-        local_backup_cleanup
+        local_backup_cleanup "${LOCAL_URL}-${BACKUP_ID}.tar.gz"
     done
 else
     # Loop through all files selected by the user
     for LOCAL_BACKUP_FILE in "${LIST_BACKUP_FILES[@]}"; do
         BACKUP_FULLFILE_PATH=${DESTINATION_FOLDER%/}"/"$LOCAL_BACKUP_FILE
-        local_backup_cleanup
+        local_backup_cleanup $LOCAL_BACKUP_FILE
     done
 fi
 
